@@ -32,11 +32,36 @@
           <main class="mdl-layout__content">
             <div class="page-content">
 
+                
+                  <div id="main">
                 <div class="mdl-shadow--2dp center_div content" >
-                    Hello
+                  <div class="mdl-grid">
+                    <div class="mdl-cell mdl-cell--4-col">
+                      <!-- Textfield with Floating Label -->
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                          <input class="mdl-textfield__input" type="text" id="sample3">
+                          <label class="mdl-textfield__label" for="sample3">卡片ID</label>
+                        </div>
+                    </div>
+                    <div class="mdl-cell mdl-cell--4-col">8</div>
+                  </div>
+                  <div class="mdl-card__actions mdl-card--border"  onclick="openNav()">
+                    <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                      View Updates
+                    </a>
+                  </div>
                 </div>
-
+              </div>
             </div>
+
+
+            <div id="mySidenav" class="sidenav">
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                <a href="#">About</a>
+                <a href="#">Services</a>
+                <a href="#">Clients</a>
+                <a href="#">Contact</a>
+              </div>
           </main>
         </div>
     
