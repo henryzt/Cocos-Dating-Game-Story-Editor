@@ -41,8 +41,8 @@
                       <div class="mdl-grid">
                           <div class="mdl-cell mdl-cell--4-col">
                               <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                <input class="mdl-textfield__input" type="text" id="sample3">
-                                <label class="mdl-textfield__label" for="sample3">卡片ID</label>
+                                <input class="mdl-textfield__input" type="text" id="cardId">
+                                <label class="mdl-textfield__label" for="cardId">卡片ID</label>
                               </div>
                           </div>
 
@@ -56,25 +56,44 @@
                                   <label class="mdl-selectfield__label" for="cardType">卡片类型</label>
                                 </div>
                           </div>
+
+                          <div class="mdl-cell mdl-cell--3-col">
+                              <div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label">
+                                  <select class="mdl-selectfield__select" id="timeLimit" name="timeLimit">
+                                    <option value="true">是</option>
+                                    <option value="false">否</option>
+                                  </select>
+                                  <label class="mdl-selectfield__label" for="timeLimit">是否限时</label>
+                                </div>
+                          </div>
                           
                       </div>
     
                       <div class="mdl-grid">
                           <div class="mdl-cell mdl-cell--10-col">
-                            <div class="editor_label">故事引导剧情</div>
-                            <div class="mdl-textfield mdl-js-textfield">
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                                 <textarea class="mdl-textfield__input" type="text" rows= "5" id="insturctionText" ></textarea>
+                                <label class="mdl-textfield__label" for="insturctionText">故事剧情文本</label>
                             </div>
                           </div>
                       </div>
 
                       <div class="mdl-grid">
                           <div class="mdl-cell mdl-cell--10-col">
-                            <div class="editor_label">故事引导剧情</div>
-                            <div class="mdl-textfield mdl-js-textfield">
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                                 <textarea class="mdl-textfield__input" type="text" rows= "3" id="cardText" ></textarea>
-                                <label class="mdl-textfield__label" for="cardText"></label>
+                                <label class="mdl-textfield__label" for="cardText">卡片文本 (可空)</label>
                             </div>
+                          </div>
+                      </div>
+
+
+                      <div class="mdl-grid">
+                          <div class="mdl-cell mdl-cell--10-col">
+                              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                <input class="mdl-textfield__input" type="text" id="cardImage">
+                                <label class="mdl-textfield__label" for="cardImage">卡片图片地址 (可空)</label>
+                              </div>
                           </div>
                       </div>
 
