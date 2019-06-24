@@ -58,6 +58,15 @@ body{
     margin-left: 50px;
   }
 
+
+  .editor_actions{
+    background: #f9f9f9;
+    padding:20px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+  }
+
+
   #main {
     transition: margin-right .5s;
   }
