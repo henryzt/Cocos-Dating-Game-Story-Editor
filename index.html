@@ -52,6 +52,8 @@
                                     <option value="swipe_type">左右滑动</option>
                                     <option value="chat">微信聊天</option>
                                     <option value="moments">微信朋友圈</option>
+                                    <option value="fail">游戏失败</option>
+                                    <option value="success">游戏成功</option>
                                   </select>
                                   <label class="mdl-selectfield__label" for="cardType">卡片类型</label>
                                 </div>
@@ -150,7 +152,34 @@
 
                     <div id="actions"></div>
 
+
+                    <div class="mdl-grid">
+                        <div class="mdl-cell mdl-cell--10-col">
+                          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                              <textarea class="mdl-textfield__input" type="text" rows= "1" id="cardText" ></textarea>
+                              <label class="mdl-textfield__label" for="cardText">备注 (可空)</label>
+                          </div>
+                        </div>
+                    </div>
+
+                    <div class="mdl-grid" style="margin-bottom: 100px;">
+                        <div class="mdl-cell mdl-cell--4-col">
+                            <button style="width: 100%;" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                                保存
+                            </button>
+                        </div>
+                        <div class="mdl-cell mdl-cell--4-col">
+                            <button style="width: 100%;" class="mdl-button mdl-js-button mdl-js-ripple-effect">
+                                取消
+                            </button>
+                        </div>
+                    </div>
+
                   </div>
+
+                    
+
+                  
 
               </div>
 
@@ -169,11 +198,15 @@
                     </a>
                   </div>
                 </div>
+
+                <button style="margin: 50px" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
+                    <i class="material-icons">add</i>
+                </button>
+
+
+
               </div>
             </div>
-
-
-
           </main>
         </div>
     

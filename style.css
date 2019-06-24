@@ -69,4 +69,5 @@ body{
 
   #main {
     transition: margin-right .5s;
+    min-height: 1000px;
   }
