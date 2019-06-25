@@ -174,6 +174,27 @@ function updateCardbyIndex(index){
     }
 }
 
+//move card up
+function moveCardUp(index){
+    if(index > 0){
+        var temp = cardsArray[index]
+        cardsArray[index] = cardsArray[index-1]
+        cardsArray[index-1] = temp
+        updateAllCardsHTML()
+    }
+}
+
+//move card down
+function moveCardDown(index){
+    if(index < cardsArray.length - 1){
+        var temp = cardsArray[index]
+        cardsArray[index] = cardsArray[index+1]
+        cardsArray[index+1] = temp
+        updateAllCardsHTML()
+    }
+}
+
+
 
 //create a single card display block
 function createCardHTML(cardObject, index) {
