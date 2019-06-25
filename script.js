@@ -23,7 +23,22 @@ function createEditorActionsHTML(cardType) {
 
 createEditorActionsHTML("swipe")
 
-
+function updateEditorContent(cardObject){
+    document.getElementById("cardId").value = cardObject.cardId
+    document.getElementById("cardType").value = cardObject.cardType
+    document.getElementById("timeLimit").value = cardObject.timeLimit
+    document.getElementById("instructionText").value = cardObject.instructionText
+    document.getElementById("cardText").value = cardObject.cardText
+    document.getElementById("cardImage").value = cardObject.cardImage
+    cardObject.actions.forEach(element => {
+        document.getElementById(`actionCardText${element.order}`).value = element.text
+        document.getElementById(`nextCardId${element.order}`).value = element.nextCardId
+        document.getElementById(`interest${element.order}`).value = element.playerData[0]
+        document.getElementById(`love${element.order}`).value = element.playerData[1]
+        document.getElementById(`wealth${element.order}`).value = element.playerData[2]
+        document.getElementById(`family${element.order}`).value = element.playerData[3]
+    });
+}
 
 
 //--------------------------------card display
@@ -32,7 +47,7 @@ var templatePack = [{
                 cardId: "01",
                 instructionText: "一小时后，你到达战场。电影院门外的女朋友好像在发脾气。",
                 cardText: null,
-                cardImage: null,
+                cardImage: "1222",
                 cardType: "swipe",
                 timeLimit: 1,
                 actions: [{
@@ -141,6 +156,7 @@ function updateAllCardsHTML(cardsObject){
 }
 
 updateAllCardsHTML(templatePack)
+updateEditorContent(templatePack[0])
 
 
 
