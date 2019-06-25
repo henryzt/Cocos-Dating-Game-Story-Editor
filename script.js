@@ -1,6 +1,7 @@
 //----------------------------editor sidebar
 
 var currentEdit;
+var cardsArray;
 
 function openEditor() {
     let editor = document.getElementById("editor")
@@ -11,6 +12,12 @@ function openEditor() {
 function closeEditor() {
     document.getElementById("editor").style.width = "0";
     document.getElementById("main").style.marginRight= "0";
+}
+
+function openEditorWithCard(cardId){
+    currentEdit = idToCard(cardId)
+    openEditor()
+    updateEditorContent(currentEdit)
 }
 
 
@@ -26,41 +33,42 @@ createEditorActionsHTML()
 
 function updateEditorContent(cardObject){
     document.getElementById("editor_title").innerHTML = `编辑卡片${cardObject.cardId}` 
-    document.getElementById("cardId").value = cardObject.cardId
+    
+    document.getElementById("eCardId").MaterialTextfield.change( cardObject.cardId )
     document.getElementById("cardType").value = cardObject.cardType
     document.getElementById("timeLimit").value = cardObject.timeLimit
-    document.getElementById("instructionText").value = cardObject.instructionText
-    document.getElementById("cardText").value = cardObject.cardText
-    document.getElementById("cardImage").value = cardObject.cardImage
-    document.getElementById("comment").value = cardObject.comment
+    document.getElementById("eInstructionText").MaterialTextfield.change( cardObject.instructionText )
+    document.getElementById("eCardText").MaterialTextfield.change( cardObject.cardText )
+    document.getElementById("eCardImage").MaterialTextfield.change( cardObject.cardImage )
+    document.getElementById("eComment").MaterialTextfield.change( cardObject.comment ) 
     cardObject.actions.forEach(element => {
         document.getElementById(`actionTitle${element.order}`).innerHTML = actionSelector(cardObject.cardType, element.order)
-        document.getElementById(`actionCardText${element.order}`).value = element.text
-        document.getElementById(`nextCardId${element.order}`).value = element.nextCardId
-        document.getElementById(`interest${element.order}`).value = element.playerData[0]
-        document.getElementById(`love${element.order}`).value = element.playerData[1]
-        document.getElementById(`wealth${element.order}`).value = element.playerData[2]
-        document.getElementById(`family${element.order}`).value = element.playerData[3]
+        document.getElementById(`eActionCardText${element.order}`).MaterialTextfield.change( element.text ) 
+        document.getElementById(`eNextCardId${element.order}`).MaterialTextfield.change( element.nextCardId ) 
+        document.getElementById(`eInterest${element.order}`).MaterialTextfield.change( element.playerData[0] ) 
+        document.getElementById(`eLove${element.order}`).MaterialTextfield.change( element.playerData[1] ) 
+        document.getElementById(`eWealth${element.order}`).MaterialTextfield.change( element.playerData[2] ) 
+        document.getElementById(`eFamily${element.order}`).MaterialTextfield.change( element.playerData[3] ) 
     });
 }
 
 function createNewEditorContent(){
     document.getElementById("editor_title").innerHTML = `新建卡片` 
-    document.getElementById("cardId").value = null
+    document.getElementById("eCardId").MaterialTextfield.change( null ) 
     document.getElementById("cardType").value = "swipe"
     document.getElementById("timeLimit").value = 0
-    document.getElementById("instructionText").value = null
-    document.getElementById("cardText").value = null
-    document.getElementById("cardImage").value = null
-    document.getElementById("comment").value = null
+    document.getElementById("eInstructionText").MaterialTextfield.change( null ) 
+    document.getElementById("eCardText").MaterialTextfield.change( null ) 
+    document.getElementById("eCardImage").MaterialTextfield.change( null ) 
+    document.getElementById("eComment").MaterialTextfield.change( null ) 
     for(var i = 1; i < 4; i++){
         document.getElementById(`actionTitle${i}`).innerHTML = actionSelector("swipe", i)
-        document.getElementById(`actionCardText${i}`).value = null
-        document.getElementById(`nextCardId${i}`).value = null
-        document.getElementById(`interest${i}`).value = 0
-        document.getElementById(`love${i}`).value = 0
-        document.getElementById(`wealth${i}`).value = 0
-        document.getElementById(`family${i}`).value = 0
+        document.getElementById(`eActionCardText${i}`).MaterialTextfield.change( null ) 
+        document.getElementById(`eNextCardId${i}`).MaterialTextfield.change( null ) 
+        document.getElementById(`eInterest${i}`).MaterialTextfield.change( 0 )
+        document.getElementById(`eLove${i}`).MaterialTextfield.change( 0 ) 
+        document.getElementById(`eWealth${i}`).MaterialTextfield.change( 0 ) 
+        document.getElementById(`eFamily${i}`).MaterialTextfield.change( 0 ) 
     };
 }
 
@@ -139,6 +147,16 @@ var templatePack = [{
                 }]
             }];
 
+cardsArray = templatePack;
+
+function idToCard(cardId){
+    for(var i=0; i<cardsArray.length; i++) {
+        if(cardsArray[i].cardId === cardId){
+            return cardsArray[i];
+        }
+    }
+    return null;
+}
 
 function createCardHTML(cardObject) {
     var template = document.getElementById("card_template").innerHTML;
@@ -204,8 +222,7 @@ function updateAllCardsHTML(cardsObject){
     })
 }
 
-updateAllCardsHTML(templatePack)
-updateEditorContent(templatePack[0])
-
+updateAllCardsHTML(cardsArray)
+// createNewEditorContent()
 
 

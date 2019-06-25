@@ -41,7 +41,7 @@
                     <div style="font-size: 20px;padding: 10px;" id="editor_title">新建卡片</div>
                       <div class="mdl-grid">
                           <div class="mdl-cell mdl-cell--4-col">
-                              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="eCardId">
                                 <input class="mdl-textfield__input" type="text" id="cardId">
                                 <label class="mdl-textfield__label" for="cardId">卡片ID</label>
                               </div>
@@ -74,7 +74,7 @@
     
                       <div class="mdl-grid">
                           <div class="mdl-cell mdl-cell--10-col">
-                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="eInstructionText">
                                 <textarea class="mdl-textfield__input" type="text" rows= "5" id="instructionText" ></textarea>
                                 <label class="mdl-textfield__label" for="instructionText">故事剧情文本</label>
                             </div>
@@ -83,7 +83,7 @@
 
                       <div class="mdl-grid">
                           <div class="mdl-cell mdl-cell--10-col">
-                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="eCardText">
                                 <textarea class="mdl-textfield__input" type="text" rows= "3" id="cardText" ></textarea>
                                 <label class="mdl-textfield__label" for="cardText">卡片文本 (可空)</label>
                             </div>
@@ -93,7 +93,7 @@
 
                       <div class="mdl-grid">
                           <div class="mdl-cell mdl-cell--10-col">
-                              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="eCardImage">
                                 <input class="mdl-textfield__input" type="text" id="cardImage">
                                 <label class="mdl-textfield__label" for="cardImage">卡片图片地址 (可空)</label>
                               </div>
@@ -106,7 +106,7 @@
                             <div class="actions_label" id="actionTitle#value#">#action#</div>
                             <div class="mdl-grid">
                                 <div class="mdl-cell mdl-cell--10-col">
-                                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="eActionCardText#value#">
                                       <textarea class="mdl-textfield__input" type="text" rows= "3" id="actionCardText#value#" ></textarea>
                                       <label class="mdl-textfield__label" for="actionCardText#value#">选项说明文本</label>
                                   </div>
@@ -115,7 +115,7 @@
 
                             <div class="mdl-grid">
                                 <div class="mdl-cell mdl-cell--10-col">
-                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="eNextCardId#value#">
                                       <input class="mdl-textfield__input" type="text" id="nextCardId#value#">
                                       <label class="mdl-textfield__label" for="nextCardId#value#">所关联卡片ID</label>
                                     </div>
@@ -124,25 +124,25 @@
 
                             <div class="mdl-grid">
                                 <div class="mdl-cell mdl-cell--2-col">
-                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="eInterest#value#">
                                       <input class="mdl-textfield__input" type="text" id="interest#value#" pattern="-?[0-9]*(\.[0-9]+)?">
                                       <label class="mdl-textfield__label" for="interest#value#">好感</label>
                                     </div>
                                 </div>
                                 <div class="mdl-cell mdl-cell--2-col">
-                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="eLove#value#">
                                       <input class="mdl-textfield__input" type="text" id="love#value#" pattern="-?[0-9]*(\.[0-9]+)?">
                                       <label class="mdl-textfield__label" for="love#value#">情趣</label>
                                     </div>
                                 </div>
                                 <div class="mdl-cell mdl-cell--2-col">
-                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="eWealth#value#">
                                       <input class="mdl-textfield__input" type="text" id="wealth#value#" pattern="-?[0-9]*(\.[0-9]+)?">
                                       <label class="mdl-textfield__label" for="wealth#value#">财富</label>
                                     </div>
                                 </div>
                                 <div class="mdl-cell mdl-cell--2-col">
-                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="eFamily#value#">
                                       <input class="mdl-textfield__input" type="text" id="family#value#" pattern="-?[0-9]*(\.[0-9]+)?">
                                       <label class="mdl-textfield__label" for="family#value#">亲友</label>
                                     </div>
@@ -156,7 +156,7 @@
 
                     <div class="mdl-grid">
                         <div class="mdl-cell mdl-cell--10-col">
-                          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="eComment">
                               <textarea class="mdl-textfield__input" type="text" rows= "1" id="comment" ></textarea>
                               <label class="mdl-textfield__label" for="comment">备注 (可空)</label>
                           </div>
@@ -240,7 +240,7 @@
                           </div>
 
                       <div class="mdl-card__actions mdl-card--border" >
-                        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" onclick="openEditor()">
+                        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" onclick="openEditorWithCard(`#cardId#`)">
                           编辑
                         </a>
                         <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
