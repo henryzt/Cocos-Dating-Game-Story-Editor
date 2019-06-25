@@ -25,19 +25,21 @@
             <div class="mdl-layout-spacer"></div>
             <!-- Navigation. We hide it in small screens. -->
             <nav class="mdl-navigation ">
-              <a class="mdl-navigation__link" href="">上传</a>
-              <a class="mdl-navigation__link" href="">保存</a>
-              <a class="mdl-navigation__link" href="">测试</a>
+              <a class="mdl-navigation__link" onclick="openSidePanel('json')">上传</a>
+              <a class="mdl-navigation__link" onclick="openSidePanel('json')">导出</a>
+              <a class="mdl-navigation__link" onclick="openSidePanel('run')">测试</a>
             </nav>
           </div>
         </header>
 
           <main class="mdl-layout__content">
 
-              <!-- Editor pannel -->
-              <div id="editor" class="sidepannel">
-                  <a href="javascript:void(0)" class="closebtn" onclick="closeEditor()">&times;</a>
-                  <div class="sidepannel_content">
+              <!-- Side pannel -->
+              <div id="sidepannel" class="sidepannel">
+                  <a href="javascript:void(0)" class="closebtn" onclick="closeSidePanel()">&times;</a>
+
+                  <!-- Editor pannel -->
+                  <div class="sidepannel_content hidden"  id="pannel_editor">
                     <div style="font-size: 20px;padding: 10px;" id="editor_title">新建卡片</div>
                       <div class="mdl-grid">
                           <div class="mdl-cell mdl-cell--4-col">
@@ -178,6 +180,13 @@
                     </div>
 
                   </div>
+
+
+                  <!-- Json pannel -->
+                  <div class="sidepannel_content hidden" id="pannel_json">
+                    This is a josn pannel
+                  </div>
+
 
               </div>
 

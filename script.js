@@ -3,27 +3,30 @@
 var currentEditIndex; //current editing index
 var cardsArray;  //cards object array
 
-function openEditor() {
-    let editor = document.getElementById("editor")
-    editor.style.width = "40%";
-    document.getElementById("main").style.marginRight = editor.style.width;
+function openSidePanel(pannelName) {
+    let pannel = document.getElementById("sidepannel")
+    document.getElementById("pannel_" + pannelName).setAttribute("class","sidepannel_content");
+    pannel.style.width = "40%";
+    document.getElementById("main").style.marginRight = pannel.style.width;
 }
 
-function closeEditor() {
+function closeSidePanel() {
+    document.getElementById("pannel_editor").setAttribute("class","hidden");
+    document.getElementById("pannel_json").setAttribute("class","hidden");
     document.getElementById("error").innerHTML = ""
-    document.getElementById("editor").style.width = 0;
+    document.getElementById("sidepannel").style.width = 0;
     document.getElementById("main").style.marginRight= 0;
 }
 
 function openEditorWithCard(cardId){
     currentEditIndex = findIndex(cardId)
-    openEditor()
+    openSidePanel("editor")
     updateEditorContent(idToCard(cardId))
 }
 
 function openEditorWithNew(){
     currentEditIndex = -1;
-    openEditor()
+    openSidePanel("editor")
     createNewEditorContent()
 }
 
@@ -113,7 +116,7 @@ function saveEditorContentToObjct(){
 function saveEditorChanges(){
     if(!checkSaveConditions())  { return }
     updateCardbyIndex(currentEditIndex)
-    closeEditor()
+    closeSidePanel()
     console.log(cardsArray)
     updateAllCardsHTML()
 }
