@@ -1,7 +1,6 @@
 //----------------------------editor sidebar
 
-var currentEdit; //current editing card object
-var currentEditIndex;
+var currentEditIndex; //current editing index
 var cardsArray;  //cards object array
 
 function openEditor() {
@@ -11,20 +10,19 @@ function openEditor() {
 }
 
 function closeEditor() {
-    document.getElementById("editor").style.width = "0";
-    document.getElementById("main").style.marginRight= "0";
+    document.getElementById("error").innerHTML = ""
+    document.getElementById("editor").style.width = 0;
+    document.getElementById("main").style.marginRight= 0;
 }
 
 function openEditorWithCard(cardId){
-    findIndex(cardId)
-    currentEdit = idToCard(cardId)
+    currentEditIndex = findIndex(cardId)
     openEditor()
-    updateEditorContent(currentEdit)
+    updateEditorContent(idToCard(cardId))
 }
 
 function openEditorWithNew(){
     currentEditIndex = -1;
-    currentEdit = new Object()
     openEditor()
     createNewEditorContent()
 }
@@ -103,22 +101,38 @@ function saveEditorContentToObjct(){
         actionsObject[i].order = i+1
         actionsObject[i].text = document.getElementById(`actionCardText${i+1}`).value
         actionsObject[i].nextCardId = document.getElementById(`nextCardId${i+1}`).value
-        actionsObject[i].playerData = [ document.getElementById(`interest${i+1}`).value,
-                                        document.getElementById(`love${i+1}`).value,
-                                        document.getElementById(`wealth${i+1}`).value,
-                                        document.getElementById(`family${i+1}`).value]
+        actionsObject[i].playerData = [ document.getElementById(`interest${i+1}`).value?document.getElementById(`interest${i+1}`).value:0,
+                                        document.getElementById(`love${i+1}`).value?document.getElementById(`love${i+1}`).value:0,
+                                        document.getElementById(`wealth${i+1}`).value?document.getElementById(`wealth${i+1}`).value:0,
+                                        document.getElementById(`family${i+1}`).value?document.getElementById(`family${i+1}`).value:0]
     }
     newCardObject.actions = actionsObject;
     return newCardObject;
 }
 
 function saveEditorChanges(){
-    currentEdit = saveEditorContentToObjct()
-    console.log(currentEdit)
+    if(!checkSaveConditions())  { return }
     updateCardbyIndex(currentEditIndex)
     closeEditor()
     console.log(cardsArray)
     updateAllCardsHTML()
+}
+
+function checkSaveConditions(){
+    var cardId = document.getElementById("cardId").value
+    if(!cardId){
+        document.getElementById("error").innerHTML = "保存失败，卡片ID不能为空。";
+        return false
+    }
+    //check if another same card id exist, todo: cannot find indexes after current index
+    var found = findIndex(cardId)
+    console.log(found)
+    console.log(currentEditIndex)
+    if(found != currentEditIndex && found != -1){
+        document.getElementById("error").innerHTML = "保存失败，卡库中已有同样的卡片ID！";
+        return false
+    }
+    return true
 }
 
 
@@ -145,19 +159,18 @@ function idToCard(cardId){
 function findIndex(cardId){
     for(var i=0; i<cardsArray.length; i++) {
         if(cardsArray[i].cardId === cardId){
-            currentEditIndex = i
-            console.log(i)
-            return
+            return i
         }
     }
+    return -1;
 }
 
 //update card by index
 function updateCardbyIndex(index){
     if(index!=-1){
-        cardsArray[index] = currentEdit;
+        cardsArray[index] = saveEditorContentToObjct();
     }else{
-        cardsArray.push(currentEdit)
+        cardsArray.push(saveEditorContentToObjct())
     }
 }
 
