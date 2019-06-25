@@ -21,6 +21,10 @@ function openEditorWithCard(cardId){
 }
 
 
+function updateTextfield(id, content){
+    document.getElementById(id).MaterialTextfield.change(content)
+}
+
 function createEditorActionsHTML() {
     var template = document.getElementById("action_template").innerHTML;
     var html = ""
@@ -34,41 +38,41 @@ createEditorActionsHTML()
 function updateEditorContent(cardObject){
     document.getElementById("editor_title").innerHTML = `编辑卡片${cardObject.cardId}` 
     
-    document.getElementById("eCardId").MaterialTextfield.change( cardObject.cardId )
+    updateTextfield("eCardId", cardObject.cardId )
     document.getElementById("cardType").value = cardObject.cardType
     document.getElementById("timeLimit").value = cardObject.timeLimit
-    document.getElementById("eInstructionText").MaterialTextfield.change( cardObject.instructionText )
-    document.getElementById("eCardText").MaterialTextfield.change( cardObject.cardText )
-    document.getElementById("eCardImage").MaterialTextfield.change( cardObject.cardImage )
-    document.getElementById("eComment").MaterialTextfield.change( cardObject.comment ) 
+    updateTextfield("eInstructionText", cardObject.instructionText )
+    updateTextfield("eCardText", cardObject.cardText )
+    updateTextfield("eCardImage", cardObject.cardImage )
+    updateTextfield("eComment", cardObject.comment ) 
     cardObject.actions.forEach(element => {
         document.getElementById(`actionTitle${element.order}`).innerHTML = actionSelector(cardObject.cardType, element.order)
-        document.getElementById(`eActionCardText${element.order}`).MaterialTextfield.change( element.text ) 
-        document.getElementById(`eNextCardId${element.order}`).MaterialTextfield.change( element.nextCardId ) 
-        document.getElementById(`eInterest${element.order}`).MaterialTextfield.change( element.playerData[0] ) 
-        document.getElementById(`eLove${element.order}`).MaterialTextfield.change( element.playerData[1] ) 
-        document.getElementById(`eWealth${element.order}`).MaterialTextfield.change( element.playerData[2] ) 
-        document.getElementById(`eFamily${element.order}`).MaterialTextfield.change( element.playerData[3] ) 
+        updateTextfield(`eActionCardText${element.order}`, element.text ) 
+        updateTextfield(`eNextCardId${element.order}`, element.nextCardId ) 
+        updateTextfield(`eInterest${element.order}`, element.playerData[0] ) 
+        updateTextfield(`eLove${element.order}`, element.playerData[1] ) 
+        updateTextfield(`eWealth${element.order}`, element.playerData[2] ) 
+        updateTextfield(`eFamily${element.order}`, element.playerData[3] ) 
     });
 }
 
 function createNewEditorContent(){
     document.getElementById("editor_title").innerHTML = `新建卡片` 
-    document.getElementById("eCardId").MaterialTextfield.change( null ) 
+    updateTextfield("eCardId", null ) 
     document.getElementById("cardType").value = "swipe"
     document.getElementById("timeLimit").value = 0
-    document.getElementById("eInstructionText").MaterialTextfield.change( null ) 
-    document.getElementById("eCardText").MaterialTextfield.change( null ) 
-    document.getElementById("eCardImage").MaterialTextfield.change( null ) 
-    document.getElementById("eComment").MaterialTextfield.change( null ) 
+    updateTextfield("eInstructionText", null ) 
+    updateTextfield("eCardText", null ) 
+    updateTextfield("eCardImage", null ) 
+    updateTextfield("eComment", null ) 
     for(var i = 1; i < 4; i++){
         document.getElementById(`actionTitle${i}`).innerHTML = actionSelector("swipe", i)
-        document.getElementById(`eActionCardText${i}`).MaterialTextfield.change( null ) 
-        document.getElementById(`eNextCardId${i}`).MaterialTextfield.change( null ) 
-        document.getElementById(`eInterest${i}`).MaterialTextfield.change( 0 )
-        document.getElementById(`eLove${i}`).MaterialTextfield.change( 0 ) 
-        document.getElementById(`eWealth${i}`).MaterialTextfield.change( 0 ) 
-        document.getElementById(`eFamily${i}`).MaterialTextfield.change( 0 ) 
+        updateTextfield(`eActionCardText${i}`, null ) 
+        updateTextfield(`eNextCardId${i}`, null ) 
+        updateTextfield(`eInterest${i}`, 0 )
+        updateTextfield(`eLove${i}`, 0 ) 
+        updateTextfield(`eWealth${i}`, 0 ) 
+        updateTextfield(`eFamily${i}`, 0 ) 
     };
 }
 
