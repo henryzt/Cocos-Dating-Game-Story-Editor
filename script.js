@@ -14,16 +14,15 @@ function closeEditor() {
 }
 
 
-function createEditorActionsHTML(cardType) {
+function createEditorActionsHTML() {
     var template = document.getElementById("action_template").innerHTML;
     var html = ""
-    html += template.replace(/#value#/g, 1).replace(/#action#/g,actionSelector(cardType, 1));
-    html += template.replace(/#value#/g, 2).replace(/#action#/g,actionSelector(cardType, 2));
-    html += template.replace(/#value#/g, 3).replace(/#action#/g,actionSelector(cardType, 3));
+    html += template.replace(/#value#/g, 1);
+    html += template.replace(/#value#/g, 2);
+    html += template.replace(/#value#/g, 3);
     document.getElementById("actions").innerHTML= html;
 }
-
-createEditorActionsHTML("swipe")
+createEditorActionsHTML()
 
 function updateEditorContent(cardObject){
     document.getElementById("editor_title").innerHTML = `编辑卡片${cardObject.cardId}` 
@@ -43,6 +42,26 @@ function updateEditorContent(cardObject){
         document.getElementById(`wealth${element.order}`).value = element.playerData[2]
         document.getElementById(`family${element.order}`).value = element.playerData[3]
     });
+}
+
+function createNewEditorContent(){
+    document.getElementById("editor_title").innerHTML = `新建卡片` 
+    document.getElementById("cardId").value = null
+    document.getElementById("cardType").value = "swipe"
+    document.getElementById("timeLimit").value = 0
+    document.getElementById("instructionText").value = null
+    document.getElementById("cardText").value = null
+    document.getElementById("cardImage").value = null
+    document.getElementById("comment").value = null
+    for(var i = 1; i < 4; i++){
+        document.getElementById(`actionTitle${i}`).innerHTML = actionSelector("swipe", i)
+        document.getElementById(`actionCardText${i}`).value = null
+        document.getElementById(`nextCardId${i}`).value = null
+        document.getElementById(`interest${i}`).value = 0
+        document.getElementById(`love${i}`).value = 0
+        document.getElementById(`wealth${i}`).value = 0
+        document.getElementById(`family${i}`).value = 0
+    };
 }
 
 function saveEditorContent(){
