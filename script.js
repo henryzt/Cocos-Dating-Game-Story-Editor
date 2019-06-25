@@ -1,7 +1,7 @@
 //----------------------------editor sidebar
 
-var currentEdit;
-var cardsArray;
+var currentEdit; //current editing card object
+var cardsArray;  //cards object array
 
 function openEditor() {
     let editor = document.getElementById("editor")
@@ -20,11 +20,18 @@ function openEditorWithCard(cardId){
     updateEditorContent(currentEdit)
 }
 
+function openEditorWithNew(){
+    currentEdit = new Object()
+    openEditor()
+    createNewEditorContent()
+}
 
+//update material textfield by id
 function updateTextfield(id, content){
     document.getElementById(id).MaterialTextfield.change(content)
 }
 
+//run once only, create three repeated actions edit block
 function createEditorActionsHTML() {
     var template = document.getElementById("action_template").innerHTML;
     var html = ""
@@ -35,6 +42,7 @@ function createEditorActionsHTML() {
 }
 createEditorActionsHTML()
 
+//update editor content with card object
 function updateEditorContent(cardObject){
     document.getElementById("editor_title").innerHTML = `编辑卡片${cardObject.cardId}` 
     
@@ -56,6 +64,7 @@ function updateEditorContent(cardObject){
     });
 }
 
+//update editor content with empty fields
 function createNewEditorContent(){
     document.getElementById("editor_title").innerHTML = `新建卡片` 
     updateTextfield("eCardId", null ) 
@@ -76,6 +85,7 @@ function createNewEditorContent(){
     };
 }
 
+//save editor content to object
 function saveEditorContent(){
     var newCardObject = new Object;
     newCardObject.cardId = document.getElementById("cardId").value
@@ -99,60 +109,17 @@ function saveEditorContent(){
 }
 
 
+function updateActionTitles(){
+    var type = document.getElementById("cardType").value;
+    for(var i = 1; i < 4; i++){
+        document.getElementById(`actionTitle${i}`).innerHTML = actionSelector(type, i)
+    }
+}
+
+
 //--------------------------------card display
 
-var templatePack = [{
-                cardId: "01",
-                instructionText: "一小时后，你到达战场。电影院门外的女朋友好像在发脾气。",
-                cardText: null,
-                cardImage: "1222",
-                cardType: "swipe",
-                timeLimit: 1,
-                comment: null,
-                actions: [{
-                    order: 1,
-                    text: "“宝贝，我错了！”赶紧道歉",
-                    nextCardId: "02a",
-                    playerData: [-1,0,0,0]
-                },{
-                    order: 2,
-                    text: "“宝贝，谁欺负你了？”",
-                    nextCardId: "02c",
-                    playerData: [1,1,0,0]
-                },{
-                    order: 3,
-                    text: "沉默",
-                    nextCardId: "02b",
-                    playerData: [-2,0,0,0]
-                }]
-            },{
-                cardId: "01",
-                instructionText: "一小时后，你到达战场。电影院门外的女朋友好像在发脾气。",
-                cardText: null,
-                cardImage: null,
-                cardType: "swipe",
-                timeLimit: 1,
-                comment: null,
-                actions: [{
-                    order: 1,
-                    text: "“宝贝，我错了！”赶紧道歉",
-                    nextCardId: "02a",
-                    playerData: [-1,0,0,0]
-                },{
-                    order: 2,
-                    text: "“宝贝，谁欺负你了？”",
-                    nextCardId: "02c",
-                    playerData: [1,1,0,0]
-                },{
-                    order: 3,
-                    text: "沉默",
-                    nextCardId: "02b",
-                    playerData: [-2,0,0,0]
-                }]
-            }];
-
-cardsArray = templatePack;
-
+//find card by id in cards array
 function idToCard(cardId){
     for(var i=0; i<cardsArray.length; i++) {
         if(cardsArray[i].cardId === cardId){
@@ -162,6 +129,7 @@ function idToCard(cardId){
     return null;
 }
 
+//create a single card display block
 function createCardHTML(cardObject) {
     var template = document.getElementById("card_template").innerHTML;
     var html = template.replace(/#cardId#/g, cardObject.cardId)
@@ -183,6 +151,16 @@ function createCardHTML(cardObject) {
 }
 
 
+//create a list of card display blocks
+function updateAllCardsHTML(cardsObject){
+    document.getElementById("cards").innerHTML = ""
+    cardsObject.forEach(element => {
+        document.getElementById("cards").innerHTML += createCardHTML(element)
+    })
+}
+
+
+//--------------------------------selectors
 function cardTypeSelector(cardType){
     switch(cardType){
         case "swipe":
@@ -209,24 +187,92 @@ function actionSelector(cardType, actionOrder){
                 return "右滑选项";
             case 3:
                 return "超时选项";
-            default:
-                return "未知选项";
         }
     }
+    if(cardType == "chat"){
+        switch(actionOrder){
+            case 1:
+                return "微信聊天回复1";
+            case 2:
+                return "微信聊天回复2";
+            case 3:
+                return "微信聊天回复3";
+        }
+    }
+    if(cardType == "moments"){
+        switch(actionOrder){
+            case 1:
+                return "微信朋友圈评论1";
+            case 2:
+                return "微信朋友圈评论2";
+            case 3:
+                return "微信朋友圈评论3";
+        }
+    }
+    return "此项不可用";
 }
 
 function nullChecker(content){
     return content? content : "无";
 }
 
-function updateAllCardsHTML(cardsObject){
-    document.getElementById("cards").innerHTML = ""
-    cardsObject.forEach(element => {
-        document.getElementById("cards").innerHTML += createCardHTML(element)
-    })
-}
+
+
+
+
+
+
+//template--------------- delete later
+var templatePack = [{
+    cardId: "01",
+    instructionText: "一小时后，你到达战场。电影院门外的女朋友好像在发脾气。",
+    cardText: null,
+    cardImage: "1222",
+    cardType: "swipe",
+    timeLimit: 1,
+    comment: null,
+    actions: [{
+        order: 1,
+        text: "“宝贝，我错了！”赶紧道歉",
+        nextCardId: "02a",
+        playerData: [-1,0,0,0]
+    },{
+        order: 2,
+        text: "“宝贝，谁欺负你了？”",
+        nextCardId: "02c",
+        playerData: [1,1,0,0]
+    },{
+        order: 3,
+        text: "沉默",
+        nextCardId: "02b",
+        playerData: [-2,0,0,0]
+    }]
+},{
+    cardId: "01",
+    instructionText: "一小时后，你到达战场。电影院门外的女朋友好像在发脾气。",
+    cardText: null,
+    cardImage: null,
+    cardType: "swipe",
+    timeLimit: 1,
+    comment: null,
+    actions: [{
+        order: 1,
+        text: "“宝贝，我错了！”赶紧道歉",
+        nextCardId: "02a",
+        playerData: [-1,0,0,0]
+    },{
+        order: 2,
+        text: "“宝贝，谁欺负你了？”",
+        nextCardId: "02c",
+        playerData: [1,1,0,0]
+    },{
+        order: 3,
+        text: "沉默",
+        nextCardId: "02b",
+        playerData: [-2,0,0,0]
+    }]
+}];
+
+cardsArray = templatePack;
 
 updateAllCardsHTML(cardsArray)
-// createNewEditorContent()
-
-

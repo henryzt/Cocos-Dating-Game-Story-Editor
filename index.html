@@ -48,8 +48,8 @@
                           </div>
 
                           <div class="mdl-cell mdl-cell--4-col">
-                              <div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label">
-                                  <select class="mdl-selectfield__select" id="cardType" name="cardType">
+                              <div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label" >
+                                  <select class="mdl-selectfield__select" id="cardType" name="cardType" value="" onchange="updateActionTitles()">
                                     <option value="swipe">左右滑动</option>
                                     <option value="chat">微信聊天</option>
                                     <option value="moments">微信朋友圈</option>
@@ -252,7 +252,7 @@
 
                 <div id="cards"></div>
 
-                <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored fab" onclick="openEditor()">
+                <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored fab" onclick="openEditorWithNew()">
                     <i class="material-icons">add</i>
                 </button>
 
