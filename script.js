@@ -2,21 +2,38 @@
 
 var currentEditIndex; //current editing index
 var cardsArray;  //cards object array
+var sidePanelOpen;
 
 function openSidePanel(panelName) {
+    sidePanelOpen = true
     hideAllPanel()
-    let pannel = document.getElementById("sidepannel")
     document.getElementById("pannel_" + panelName).setAttribute("class","sidepannel_content");
-    pannel.style.width = "40%";
-    document.getElementById("main").style.marginRight = pannel.style.width;
+    resizeSidePanel()
 }
 
 function closeSidePanel() {
+    sidePanelOpen = false
     hideAllPanel()
     document.getElementById("error").innerHTML = ""
     document.getElementById("sidepannel").style.width = 0;
     document.getElementById("main").style.marginRight= 0;
 }
+
+function resizeSidePanel(){
+    if(!sidePanelOpen) return
+    document.getElementById("main").style.marginRight= 0;
+    let pannel = document.getElementById("sidepannel")
+    if(window.innerWidth < 1100){
+        pannel.style.width = "60%";
+        if(window.innerWidth < 900){
+            pannel.style.width = "100%";
+        }
+    }else{
+        pannel.style.width = "40%";
+        document.getElementById("main").style.marginRight = pannel.style.width;
+    }
+}
+window.addEventListener("resize", resizeSidePanel);
 
 function hideAllPanel(){
     document.getElementById("pannel_editor").setAttribute("class","hidden");
@@ -125,6 +142,7 @@ function saveEditorChanges(){
     closeSidePanel()
     console.log(cardsArray)
     updateAllCardsHTML()
+    saveToLocal()
 }
 
 function checkSaveConditions(){
@@ -301,60 +319,20 @@ function importJson(json){
     updateAllCardsHTML()
 }
 
+function saveToLocal(){
+    localStorage.setItem('json', exportJson())
+}
+
+function readFromLocal(){
+    var local = localStorage.getItem('json')
+    if(local){
+        importJson(local)
+    }else{
+        cardsArray = []
+    }
+}
 
 
 
-//template--------------- delete later
-var templatePack = [{
-    cardId: "01",
-    instructionText: "一小时后，你到达战场。电影院门外的女朋友好像在发脾气。",
-    cardText: null,
-    cardImage: "1222",
-    cardType: "swipe",
-    timeLimit: 1,
-    comment: null,
-    actions: [{
-        order: 1,
-        text: "“宝贝，我错了！”赶紧道歉",
-        nextCardId: "02a",
-        playerData: [-1,0,0,0]
-    },{
-        order: 2,
-        text: "“宝贝，谁欺负你了？”",
-        nextCardId: "02c",
-        playerData: [1,1,0,0]
-    },{
-        order: 3,
-        text: "沉默",
-        nextCardId: "02b",
-        playerData: [-2,0,0,0]
-    }]
-},{
-    cardId: "01",
-    instructionText: "一小时后，你到达战场。电影院门外的女朋友好像在发脾气。",
-    cardText: null,
-    cardImage: null,
-    cardType: "swipe",
-    timeLimit: 1,
-    comment: null,
-    actions: [{
-        order: 1,
-        text: "“宝贝，我错了！”赶紧道歉",
-        nextCardId: "02a",
-        playerData: [-1,0,0,0]
-    },{
-        order: 2,
-        text: "“宝贝，谁欺负你了？”",
-        nextCardId: "02c",
-        playerData: [1,1,0,0]
-    },{
-        order: 3,
-        text: "沉默",
-        nextCardId: "02b",
-        playerData: [-2,0,0,0]
-    }]
-}];
 
-cardsArray = templatePack;
-
-updateAllCardsHTML()
+readFromLocal()
