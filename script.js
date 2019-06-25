@@ -57,6 +57,13 @@ function createCardHTML(cardObject) {
                         .replace(/#cardType#/g, cardTypeSelector(cardObject.cardType))
                         .replace(/#timeLimit#/g, cardObject.timeLimit == 0 ? "否":"是" );
 
+    cardObject.actions.forEach(element => {
+        var effect = `好感${element.playerData[0]}，情趣${element.playerData[1]}，财富${element.playerData[2]}，亲友${element.playerData[3]} - 转入${element.nextCardId}`
+        html = html.replace(`#action${element.order}Title#`, actionSelector(cardObject.cardType, element.order))
+                    .replace(`#action${element.order}Text#`, element.text)
+                    .replace(`#action${element.order}effect#`, effect);
+    });
+
     document.getElementById("cards").innerHTML += html;
 }
 
@@ -75,6 +82,21 @@ function cardTypeSelector(cardType){
             return "游戏成功";
         default:
             return "未知";
+    }
+}
+
+function actionSelector(cardType, actionOrder){
+    if(cardType == "swipe"){
+        switch(actionOrder){
+            case 1:
+                return "左滑选项";
+            case 2:
+                return "右滑选项";
+            case 3:
+                return "超时选项";
+            default:
+                return "未知选项";
+        }
     }
 }
 
