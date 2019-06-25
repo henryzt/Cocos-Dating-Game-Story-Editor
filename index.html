@@ -270,12 +270,19 @@
                             </div>
                           </div>
 
-                      <div class="mdl-card__actions mdl-card--border" >
-                        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" onclick="openEditorWithCard(`#cardId#`)">
+                      <div class="mdl-card__actions mdl-card--border" style="display:flex;">
+                        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" onclick="openEditorWithCardIndex(#index#)">
                           编辑
                         </a>
                         <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
                             删除
+                        </a>
+                        <div class="mdl-layout-spacer"></div>
+                        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                            上移
+                        </a>
+                        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                            下移
                         </a>
                       </div>
                     </div>

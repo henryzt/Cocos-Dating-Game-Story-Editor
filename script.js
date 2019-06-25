@@ -23,10 +23,11 @@ function hideAllPanel(){
     document.getElementById("pannel_json").setAttribute("class","hidden");
 }
 
-function openEditorWithCard(cardId){
-    currentEditIndex = findIndex(cardId)
+function openEditorWithCardIndex(index){
+    console.log(index)
+    currentEditIndex = index
     openSidePanel("editor")
-    updateEditorContent(idToCard(cardId))
+    updateEditorContent(cardsArray[index])
 }
 
 function openEditorWithNew(){
@@ -154,16 +155,7 @@ function updateActionTitles(){
 
 //--------------------------------card display
 
-//find card by id in cards array
-function idToCard(cardId){
-    for(var i=0; i<cardsArray.length; i++) {
-        if(cardsArray[i].cardId === cardId){
-            return cardsArray[i];
-        }
-    }
-    return null;
-}
-
+//find card by id
 function findIndex(cardId){
     for(var i=0; i<cardsArray.length; i++) {
         if(cardsArray[i].cardId === cardId){
@@ -184,7 +176,7 @@ function updateCardbyIndex(index){
 
 
 //create a single card display block
-function createCardHTML(cardObject) {
+function createCardHTML(cardObject, index) {
     var template = document.getElementById("card_template").innerHTML;
     var html = template.replace(/#cardId#/g, cardObject.cardId)
                         .replace(/#instructionText#/g, cardObject.instructionText)
@@ -192,6 +184,7 @@ function createCardHTML(cardObject) {
                         .replace(/#cardImage#/g, nullChecker(cardObject.cardImage))
                         .replace(/#comment#/g, nullChecker(cardObject.comment))
                         .replace(/#cardType#/g, cardTypeSelector(cardObject.cardType))
+                        .replace(/#index#/g, index) //card array index
                         .replace(/#timeLimit#/g, cardObject.timeLimit == 0 ? "否":"是" );
 
     cardObject.actions.forEach(element => {
@@ -208,8 +201,10 @@ function createCardHTML(cardObject) {
 //create a list of card display blocks
 function updateAllCardsHTML(){
     document.getElementById("cards").innerHTML = ""
+    var i = 0;
     cardsArray.forEach(element => {
-        document.getElementById("cards").innerHTML += createCardHTML(element)
+        document.getElementById("cards").innerHTML += createCardHTML(element, i)
+        i++;
     })
 }
 
