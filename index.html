@@ -40,7 +40,7 @@
 
                   <!-- Editor pannel -->
                   <div class="sidepannel_content hidden"  id="pannel_editor">
-                    <div style="font-size: 20px;padding: 10px;" id="editor_title">新建卡片</div>
+                    <div class="sidepannel_title" id="editor_title">新建卡片</div>
                       <div class="mdl-grid">
                           <div class="mdl-cell mdl-cell--4-col">
                               <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="eCardId">
@@ -173,7 +173,7 @@
                             </button>
                         </div>
                         <div class="mdl-cell mdl-cell--4-col">
-                            <button style="width: 100%;" class="mdl-button mdl-js-button mdl-js-ripple-effect">
+                            <button onclick="closeSidePanel()" style="width: 100%;" class="mdl-button mdl-js-button mdl-js-ripple-effect">
                                 取消
                             </button>
                         </div>
@@ -184,7 +184,28 @@
 
                   <!-- Json pannel -->
                   <div class="sidepannel_content hidden" id="pannel_json">
-                    This is a josn pannel
+                      <div class="sidepannel_title" id="editor_title">JSON导出与上传</div>
+
+                      <div class="mdl-grid">
+                          <div class="mdl-cell mdl-cell--12-col">
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="eJsonEditor">
+                                <textarea class="mdl-textfield__input" type="text" rows="10" id="jsonEditor" style="height: 300px;"></textarea>
+                                <label class="mdl-textfield__label" for="jsonEditor">在此处输入JSON</label>
+                            </div>
+
+                            <br>
+                            <p>导出编辑器内的JSON到文本框中</p>
+                            <button onclick="exportJson()" style="width: 40%;" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                                生成JSON
+                            </button>
+
+                            <p style="padding-top:30px;">将文本框中的JSON导入到编辑器内</p>
+                            <button onclick="importJson()" style="width: 40%;" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                                导入JSON
+                            </button>
+                          </div>
+                      </div>
+                    
                   </div>
 
 

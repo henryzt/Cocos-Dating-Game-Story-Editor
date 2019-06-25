@@ -3,19 +3,24 @@
 var currentEditIndex; //current editing index
 var cardsArray;  //cards object array
 
-function openSidePanel(pannelName) {
+function openSidePanel(panelName) {
+    hideAllPanel()
     let pannel = document.getElementById("sidepannel")
-    document.getElementById("pannel_" + pannelName).setAttribute("class","sidepannel_content");
+    document.getElementById("pannel_" + panelName).setAttribute("class","sidepannel_content");
     pannel.style.width = "40%";
     document.getElementById("main").style.marginRight = pannel.style.width;
 }
 
 function closeSidePanel() {
-    document.getElementById("pannel_editor").setAttribute("class","hidden");
-    document.getElementById("pannel_json").setAttribute("class","hidden");
+    hideAllPanel()
     document.getElementById("error").innerHTML = ""
     document.getElementById("sidepannel").style.width = 0;
     document.getElementById("main").style.marginRight= 0;
+}
+
+function hideAllPanel(){
+    document.getElementById("pannel_editor").setAttribute("class","hidden");
+    document.getElementById("pannel_json").setAttribute("class","hidden");
 }
 
 function openEditorWithCard(cardId){
@@ -267,6 +272,18 @@ function nullChecker(content){
 
 
 
+//--------------------------------------cards save and load
+function exportJson(){
+    var json = JSON.stringify(cardsArray, null, 1)
+    updateTextfield("eJsonEditor", json)
+    return json;
+}
+
+function importJson(json){
+    if(!json){  json=document.getElementById("jsonEditor").value  }
+    cardsArray = JSON.parse(json)
+    updateAllCardsHTML()
+}
 
 
 
