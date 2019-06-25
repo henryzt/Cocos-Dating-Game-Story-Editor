@@ -1,3 +1,5 @@
+//----------------------------editor sidebar
+
 function openEditor() {
     let editor = document.getElementById("editor")
     editor.style.width = "40%";
@@ -10,17 +12,21 @@ function closeEditor() {
 }
 
 
-function createActionsHTML(action1, action2, action3) {
+function createEditorActionsHTML(cardType) {
     var template = document.getElementById("action_template").innerHTML;
     var html = ""
-    html += template.replace(/#value#/g, 1).replace(/#action#/g,action1);
-    html += template.replace(/#value#/g, 2).replace(/#action#/g,action2);
-    html += template.replace(/#value#/g, 3).replace(/#action#/g,action3);
+    html += template.replace(/#value#/g, 1).replace(/#action#/g,actionSelector(cardType, 1));
+    html += template.replace(/#value#/g, 2).replace(/#action#/g,actionSelector(cardType, 2));
+    html += template.replace(/#value#/g, 3).replace(/#action#/g,actionSelector(cardType, 3));
     document.getElementById("actions").innerHTML= html;
 }
 
-createActionsHTML("左滑选项", "右滑选项", "超时选项")
+createEditorActionsHTML("swipe")
 
+
+
+
+//--------------------------------card display
 
 var templatePack = [{
                 cardId: "01",
@@ -28,7 +34,30 @@ var templatePack = [{
                 cardText: null,
                 cardImage: null,
                 cardType: "swipe",
-                timeLimit: 0,
+                timeLimit: 1,
+                actions: [{
+                    order: 1,
+                    text: "“宝贝，我错了！”赶紧道歉",
+                    nextCardId: "02a",
+                    playerData: [-1,0,0,0]
+                },{
+                    order: 2,
+                    text: "“宝贝，谁欺负你了？”",
+                    nextCardId: "02c",
+                    playerData: [1,1,0,0]
+                },{
+                    order: 3,
+                    text: "沉默",
+                    nextCardId: "02b",
+                    playerData: [-2,0,0,0]
+                }]
+            },{
+                cardId: "01",
+                instructionText: "一小时后，你到达战场。电影院门外的女朋友好像在发脾气。",
+                cardText: null,
+                cardImage: null,
+                cardType: "swipe",
+                timeLimit: 1,
                 actions: [{
                     order: 1,
                     text: "“宝贝，我错了！”赶紧道歉",
@@ -64,7 +93,7 @@ function createCardHTML(cardObject) {
                     .replace(`#action${element.order}effect#`, effect);
     });
 
-    document.getElementById("cards").innerHTML += html;
+    return html;
 }
 
 
@@ -104,4 +133,14 @@ function nullChecker(content){
     return content? content : "无";
 }
 
-createCardHTML(templatePack[0])
+function updateAllCardsHTML(cardsObject){
+    document.getElementById("cards").innerHTML = ""
+    cardsObject.forEach(element => {
+        document.getElementById("cards").innerHTML += createCardHTML(element)
+    })
+}
+
+updateAllCardsHTML(templatePack)
+
+
+
