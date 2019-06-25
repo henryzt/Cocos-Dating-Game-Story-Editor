@@ -79,12 +79,36 @@ body{
       padding: 20px;
   }
 
-  .card_oneline p{ 
+  .card_oneline_text{ 
     font-size: 14px;
     vertical-align: middle;
     display: inline-block;
     margin:0;
-    margin-top:5px;
-    margin-left: 10px;
-    
+    float: right;
+    /* margin:5px;
+    margin-left: 10px; */
+
+  }
+
+  .card_long_text{ 
+    font-size: 14px;
+    margin:0;
+    padding-bottom: 10px;
+  }
+
+  .mdl-chip {
+    line-height: 25px;
+    height: 25px;
+  }
+
+  .mdl-shadow--2dp{
+    transition: 0.3s;
+  }
+  .mdl-shadow--2dp:hover{
+
+    box-shadow: 2px 5px 20px 0px rgba(0,0,0,0.3);
+  }
+
+  .accent_color{
+    color: #ff4081;
   }
