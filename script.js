@@ -1,6 +1,7 @@
 //----------------------------editor sidebar
 
 var currentEdit; //current editing card object
+var currentEditIndex;
 var cardsArray;  //cards object array
 
 function openEditor() {
@@ -15,12 +16,14 @@ function closeEditor() {
 }
 
 function openEditorWithCard(cardId){
+    findIndex(cardId)
     currentEdit = idToCard(cardId)
     openEditor()
     updateEditorContent(currentEdit)
 }
 
 function openEditorWithNew(){
+    currentEditIndex = -1;
     currentEdit = new Object()
     openEditor()
     createNewEditorContent()
@@ -86,7 +89,7 @@ function createNewEditorContent(){
 }
 
 //save editor content to object
-function saveEditorContent(){
+function saveEditorContentToObjct(){
     var newCardObject = new Object;
     newCardObject.cardId = document.getElementById("cardId").value
     newCardObject.cardType = document.getElementById("cardType").value
@@ -97,6 +100,7 @@ function saveEditorContent(){
     newCardObject.comment = document.getElementById("comment").value
     var actionsObject = [new Object, new Object, new Object]
     for(var i = 0; i < 3; i++){
+        actionsObject[i].order = i+1
         actionsObject[i].text = document.getElementById(`actionCardText${i+1}`).value
         actionsObject[i].nextCardId = document.getElementById(`nextCardId${i+1}`).value
         actionsObject[i].playerData = [ document.getElementById(`interest${i+1}`).value,
@@ -106,6 +110,15 @@ function saveEditorContent(){
     }
     newCardObject.actions = actionsObject;
     return newCardObject;
+}
+
+function saveEditorChanges(){
+    currentEdit = saveEditorContentToObjct()
+    console.log(currentEdit)
+    updateCardbyIndex(currentEditIndex)
+    closeEditor()
+    console.log(cardsArray)
+    updateAllCardsHTML()
 }
 
 
@@ -128,6 +141,26 @@ function idToCard(cardId){
     }
     return null;
 }
+
+function findIndex(cardId){
+    for(var i=0; i<cardsArray.length; i++) {
+        if(cardsArray[i].cardId === cardId){
+            currentEditIndex = i
+            console.log(i)
+            return
+        }
+    }
+}
+
+//update card by index
+function updateCardbyIndex(index){
+    if(index!=-1){
+        cardsArray[index] = currentEdit;
+    }else{
+        cardsArray.push(currentEdit)
+    }
+}
+
 
 //create a single card display block
 function createCardHTML(cardObject) {
@@ -152,9 +185,9 @@ function createCardHTML(cardObject) {
 
 
 //create a list of card display blocks
-function updateAllCardsHTML(cardsObject){
+function updateAllCardsHTML(){
     document.getElementById("cards").innerHTML = ""
-    cardsObject.forEach(element => {
+    cardsArray.forEach(element => {
         document.getElementById("cards").innerHTML += createCardHTML(element)
     })
 }
@@ -275,4 +308,4 @@ var templatePack = [{
 
 cardsArray = templatePack;
 
-updateAllCardsHTML(cardsArray)
+updateAllCardsHTML()
