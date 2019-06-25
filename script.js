@@ -1,5 +1,7 @@
 //----------------------------editor sidebar
 
+var currentEdit;
+
 function openEditor() {
     let editor = document.getElementById("editor")
     editor.style.width = "40%";
@@ -24,13 +26,16 @@ function createEditorActionsHTML(cardType) {
 createEditorActionsHTML("swipe")
 
 function updateEditorContent(cardObject){
+    document.getElementById("editor_title").innerHTML = `编辑卡片${cardObject.cardId}` 
     document.getElementById("cardId").value = cardObject.cardId
     document.getElementById("cardType").value = cardObject.cardType
     document.getElementById("timeLimit").value = cardObject.timeLimit
     document.getElementById("instructionText").value = cardObject.instructionText
     document.getElementById("cardText").value = cardObject.cardText
     document.getElementById("cardImage").value = cardObject.cardImage
+    document.getElementById("comment").value = cardObject.comment
     cardObject.actions.forEach(element => {
+        document.getElementById(`actionTitle${element.order}`).innerHTML = actionSelector(cardObject.cardType, element.order)
         document.getElementById(`actionCardText${element.order}`).value = element.text
         document.getElementById(`nextCardId${element.order}`).value = element.nextCardId
         document.getElementById(`interest${element.order}`).value = element.playerData[0]
@@ -38,6 +43,28 @@ function updateEditorContent(cardObject){
         document.getElementById(`wealth${element.order}`).value = element.playerData[2]
         document.getElementById(`family${element.order}`).value = element.playerData[3]
     });
+}
+
+function saveEditorContent(){
+    var newCardObject = new Object;
+    newCardObject.cardId = document.getElementById("cardId").value
+    newCardObject.cardType = document.getElementById("cardType").value
+    newCardObject.timeLimit = document.getElementById("timeLimit").value
+    newCardObject.instructionText = document.getElementById("instructionText").value
+    newCardObject.cardText = document.getElementById("cardText").value
+    newCardObject.cardImage = document.getElementById("cardImage").value
+    newCardObject.comment = document.getElementById("comment").value
+    var actionsObject = [new Object, new Object, new Object]
+    for(var i = 0; i < 3; i++){
+        actionsObject[i].text = document.getElementById(`actionCardText${i+1}`).value
+        actionsObject[i].nextCardId = document.getElementById(`nextCardId${i+1}`).value
+        actionsObject[i].playerData = [ document.getElementById(`interest${i+1}`).value,
+                                        document.getElementById(`love${i+1}`).value,
+                                        document.getElementById(`wealth${i+1}`).value,
+                                        document.getElementById(`family${i+1}`).value]
+    }
+    newCardObject.actions = actionsObject;
+    return newCardObject;
 }
 
 
@@ -50,6 +77,7 @@ var templatePack = [{
                 cardImage: "1222",
                 cardType: "swipe",
                 timeLimit: 1,
+                comment: null,
                 actions: [{
                     order: 1,
                     text: "“宝贝，我错了！”赶紧道歉",
@@ -73,6 +101,7 @@ var templatePack = [{
                 cardImage: null,
                 cardType: "swipe",
                 timeLimit: 1,
+                comment: null,
                 actions: [{
                     order: 1,
                     text: "“宝贝，我错了！”赶紧道歉",
@@ -98,6 +127,7 @@ function createCardHTML(cardObject) {
                         .replace(/#instructionText#/g, cardObject.instructionText)
                         .replace(/#cardText#/g, nullChecker(cardObject.cardText))
                         .replace(/#cardImage#/g, nullChecker(cardObject.cardImage))
+                        .replace(/#comment#/g, nullChecker(cardObject.comment))
                         .replace(/#cardType#/g, cardTypeSelector(cardObject.cardType))
                         .replace(/#timeLimit#/g, cardObject.timeLimit == 0 ? "否":"是" );
 

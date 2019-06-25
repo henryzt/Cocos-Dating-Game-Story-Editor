@@ -103,7 +103,7 @@
                       <!-- action block template -->
                       <script type="text/html" id="action_template">
                         <div class="editor_actions">
-                            <div class="actions_label">#action#</div>
+                            <div class="actions_label" id="actionTitle#value#">#action#</div>
                             <div class="mdl-grid">
                                 <div class="mdl-cell mdl-cell--10-col">
                                   <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
@@ -157,8 +157,8 @@
                     <div class="mdl-grid">
                         <div class="mdl-cell mdl-cell--10-col">
                           <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                              <textarea class="mdl-textfield__input" type="text" rows= "1" id="cardText" ></textarea>
-                              <label class="mdl-textfield__label" for="cardText">备注 (可空)</label>
+                              <textarea class="mdl-textfield__input" type="text" rows= "1" id="comment" ></textarea>
+                              <label class="mdl-textfield__label" for="comment">备注 (可空)</label>
                           </div>
                         </div>
                     </div>
@@ -213,6 +213,10 @@
                                     <span class="mdl-chip"><span class="mdl-chip__text">卡片文本</span></span>
                                     <div id="dCardText" class="card_long_text">#cardText#</div>
                                 </div>
+                                <div class="card_action">
+                                    <span class="mdl-chip"><span class="mdl-chip__text">备注</span></span>
+                                    <div id="dCardText" class="card_long_text">#comment#</div>
+                                </div>
 
                             </div>
                             <div class="mdl-cell mdl-cell--6-col">
@@ -231,6 +235,7 @@
                                     <div class="card_long_text">#action3Text#</div>
                                     <div class="accent_color">#action3effect#</div> 
                                 </div>
+                               
                             </div>
                           </div>
 
