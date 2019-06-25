@@ -50,7 +50,7 @@
                           <div class="mdl-cell mdl-cell--4-col">
                               <div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label">
                                   <select class="mdl-selectfield__select" id="cardType" name="cardType">
-                                    <option value="swipe_type">左右滑动</option>
+                                    <option value="swipe">左右滑动</option>
                                     <option value="chat">微信聊天</option>
                                     <option value="moments">微信朋友圈</option>
                                     <option value="fail">游戏失败</option>
@@ -184,7 +184,7 @@
             <div class="page-content">                
                   <div id="main">
 
-                    <!-- action block template -->
+                    <!-- card block template -->
                   <script type="text/html" id="card_template">
                     <div class="mdl-shadow--2dp center_div content" >
                         <div class="mdl-grid card_display" id="#cardId#">
@@ -245,9 +245,9 @@
                     </div>
                 </script>
 
+                <div id="cards"></div>
 
-
-                <button style="margin: 50px" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
+                <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored fab" onclick="openEditor()">
                     <i class="material-icons">add</i>
                 </button>
 

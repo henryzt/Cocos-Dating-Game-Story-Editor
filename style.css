@@ -116,3 +116,8 @@ body{
   .card_action{
       margin-top:10px;
   }
+
+  .fab{
+    margin: 50px;
+    box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.1);
+  }
