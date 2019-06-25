@@ -100,8 +100,8 @@
                           </div>
                       </div>
 
+                      <!-- action block template -->
                       <script type="text/html" id="action_template">
-                        <!-- action block template -->
                         <div class="editor_actions">
                             <div class="actions_label" id="action1">#action#</div>
                             <div class="mdl-grid">
@@ -184,65 +184,68 @@
             <div class="page-content">                
                   <div id="main">
 
-                <div class="mdl-shadow--2dp center_div content" >
+                    <!-- action block template -->
+                  <script type="text/html" id="card_template">
+                    <div class="mdl-shadow--2dp center_div content" >
+                        <div class="mdl-grid card_display" id="#cardId#">
+                            <div class="mdl-cell mdl-cell--6-col">
+                                <div>
+                                  <span class="mdl-chip"><span class="mdl-chip__text">卡片ID</span></span>
+                                  <div id="dCardId" class="card_oneline_text accent_color">#cardId#</div>
+                                </div>
+                                <div>
+                                    <span class="mdl-chip"><span class="mdl-chip__text">卡片类型</span></span>
+                                    <div id="dCardType" class="card_oneline_text">#cardType#</div>
+                                </div>
+                                <div>
+                                    <span class="mdl-chip"><span class="mdl-chip__text">是否限时</span></span>
+                                    <div id="dTimeLimit" class="card_oneline_text">#timeLimit#</div>
+                                </div>
+                                <div>
+                                    <span class="mdl-chip"><span class="mdl-chip__text">背景图片</span></span>
+                                    <div id="dCardImage" class="card_oneline_text">#cardImage#</div>
+                                </div>
+                                <div class="card_action">
+                                    <span class="mdl-chip"><span class="mdl-chip__text">故事剧情文本</span></span>
+                                    <div id="dInstructionText" class="card_long_text">#instructionText#</div>
+                                </div>
+                                <div class="card_action">
+                                    <span class="mdl-chip"><span class="mdl-chip__text">卡片文本</span></span>
+                                    <div id="dCardText" class="card_long_text">#cardText#</div>
+                                </div>
 
-                    <div class="mdl-grid card_display">
-                        <div class="mdl-cell mdl-cell--6-col">
+                            </div>
+                            <div class="mdl-cell mdl-cell--6-col">
+                                <div>
+                                    <span class="mdl-chip"><span class="mdl-chip__text">#action1Title#</span></span>
+                                    <div class="card_long_text">#action1Text#</div>
+                                    <div class="accent_color">#action1effect#</div> 
+                                </div>
+                                <div class="card_action">
+                                    <span class="mdl-chip"><span class="mdl-chip__text">#action2Title#</span></span>
+                                    <div class="card_long_text">#action2Text#</div>
+                                    <div class="accent_color">#action2effect#</div> 
+                                </div>
+                                <div class="card_action">
+                                    <span class="mdl-chip"><span class="mdl-chip__text">#action3Title#</span></span>
+                                    <div class="card_long_text">#action3Text#</div>
+                                    <div class="accent_color">#action3effect#</div> 
+                                </div>
+                            </div>
+                          </div>
 
-                            <div>
-                              <span class="mdl-chip"><span class="mdl-chip__text">卡片ID</span></span>
-                              <div id="dCardId" class="card_oneline_text accent_color">a1</div>
-                            </div>
-                            <div>
-                                <span class="mdl-chip"><span class="mdl-chip__text">卡片类型</span></span>
-                                <div id="dCardType" class="card_oneline_text">左右滑动</div>
-                            </div>
-                            <div>
-                                <span class="mdl-chip"><span class="mdl-chip__text">是否限时</span></span>
-                                <div id="dTimeLimit" class="card_oneline_text">否</div>
-                            </div>
-                            <div>
-                                <span class="mdl-chip"><span class="mdl-chip__text">背景图片</span></span>
-                                <div id="dCardImage" class="card_oneline_text">无</div>
-                            </div>
-                            <div class="card_action">
-                                <span class="mdl-chip"><span class="mdl-chip__text">故事剧情文本</span></span>
-                                <div id="dInstructionText" class="card_long_text">在你沉默的时候，女朋友一通抢白:“电话不接，微信也不回，你是什么意思吗！”掏出手机一看，有好多未接来电……</div>
-                            </div>
-                            <div class="card_action">
-                                <span class="mdl-chip"><span class="mdl-chip__text">卡片文本</span></span>
-                                <div id="dCardText" class="card_long_text">这里是一串超级长的对话，为你讲述一个事件</div>
-                            </div>
-
-                        </div>
-                        <div class="mdl-cell mdl-cell--6-col">
-                            <div>
-                                <span class="mdl-chip"><span class="mdl-chip__text">左滑事件</span></span>
-                                <div id="dCardType" class="card_long_text">在开车，没注意。</div>
-                                <div class="accent_color">情趣- 转入03b</div> 
-                            </div>
-                            <div class="card_action">
-                                <span class="mdl-chip"><span class="mdl-chip__text">右滑事件</span></span>
-                                <div id="dCardType" class="card_long_text">刚才和我妈视频来着。</div>
-                                <div class="accent_color">情趣- 转入03b</div> 
-                            </div>
-                            <div class="card_action">
-                                <span class="mdl-chip"><span class="mdl-chip__text">超时事件</span></span>
-                                <div id="dCardType" class="card_long_text">看电影之前调了静音。</div>
-                                <div class="accent_color">情趣- 转入03b</div> 
-                            </div>
-                        </div>
+                      <div class="mdl-card__actions mdl-card--border" >
+                        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" onclick="openEditor()">
+                          编辑
+                        </a>
+                        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                            删除
+                        </a>
                       </div>
+                    </div>
+                </script>
 
-                  <div class="mdl-card__actions mdl-card--border" >
-                    <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" onclick="openEditor()">
-                      编辑
-                    </a>
-                    <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-                        删除
-                    </a>
-                  </div>
-                </div>
+
 
                 <button style="margin: 50px" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
                     <i class="material-icons">add</i>
