@@ -25,8 +25,9 @@
             <div class="mdl-layout-spacer"></div>
             <!-- Navigation. We hide it in small screens. -->
             <nav class="mdl-navigation ">
+              <a class="mdl-navigation__link" onclick="openEditorWithNew()">新建</a>
               <a class="mdl-navigation__link" href="javascript:openSidePanel('json');window.setTimeout(function(){scrollTo('plain_text_divider')},500);">导入</a>
-              <a class="mdl-navigation__link" onclick="openSidePanel('json')">下载</a>
+              <a class="mdl-navigation__link" onclick="openSidePanel('json')">保存</a>
               <a class="mdl-navigation__link" onclick="openSidePanel('run')">测试</a>
             </nav>
           </div>
@@ -250,7 +251,7 @@
 
                     <!-- card block template -->
                   <script type="text/html" id="card_template">
-                    <div class="mdl-shadow--2dp center_div content" >
+                    <div class="mdl-shadow--2dp center_div content #cardTypeValue#_card_background" >
                         <div class="mdl-grid card_display" id="#cardId#">
                             <div class="mdl-cell mdl-cell--6-col" id="right_padding">
                                 <div>

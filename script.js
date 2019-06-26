@@ -236,13 +236,18 @@ function createCardHTML(cardObject, index) {
                         .replace(/#cardImage#/g, nullChecker(cardObject.cardImage))
                         .replace(/#comment#/g, nullChecker(cardObject.comment))
                         .replace(/#cardType#/g, cardTypeSelector(cardObject.cardType))
+                        .replace(/#cardTypeValue#/g, cardObject.cardType)
                         .replace(/#index#/g, index) //card array index
                         .replace(/#timeLimit#/g, cardObject.timeLimit == 0 ? "否":"是" );
 
     cardObject.actions.forEach(element => {
-        var effect = `好感${element.playerData[0]}，情趣${element.playerData[1]}，财富${element.playerData[2]}，亲友${element.playerData[3]}
-                        <br><a class="accent_color2" href="javascript:scrollTo('${element.nextCardId}')")'>转入${element.nextCardId}</a>`
-        // document.getElementById(`link${element.nextCardId}`).onclick = function(){scrollTo(element.nextCardId)} //set scroll to anchor
+        var effect = "";
+        if(element.playerData){
+            effect += `好感${element.playerData[0]}，情趣${element.playerData[1]}，财富${element.playerData[2]}，亲友${element.playerData[3]}`
+        }
+        if(element.nextCardId){
+            effect += `<br><a class="accent_color2" href="javascript:scrollTo('${element.nextCardId}')")'>转入${element.nextCardId}</a>`
+        }
         html = html.replace(`#action${element.order}Title#`, actionSelector(cardObject.cardType, element.order))
                     .replace(`#action${element.order}Text#`, element.text)
                     .replace(`#action${element.order}effect#`, effect);

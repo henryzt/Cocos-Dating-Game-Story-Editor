@@ -41,6 +41,8 @@ body{
   .sidepannel_content{
     padding: 60px;
     text-align: left;
+    animation-name: enter;
+      animation-duration: 1s;
   }
 
   .sidepannel a {
@@ -151,6 +153,13 @@ body{
   @keyframes enter {
     from {opacity: 0;}
     to {opacity: 1;}
+  }
+
+  .fail_card_background{
+      background: #ffedf1;
+  }
+  .success_card_background{
+      background: #f2ffed;
   }
 
 
