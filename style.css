@@ -1,3 +1,8 @@
+html {
+    scroll-behavior: smooth;
+  }
+
+
 body{
     text-align:center;
     background:#f9f9f9;
@@ -112,6 +117,9 @@ body{
     color: #ff4081;
   }
 
+  .accent_color2{
+    color: rgb(63,81,181);
+  }
   .card_action{
       margin-top:10px;
   }

@@ -202,6 +202,7 @@ function moveCardUp(index){
         cardsArray[index] = cardsArray[index-1]
         cardsArray[index-1] = temp
         updateAllCardsHTML()
+        scrollTo(cardsArray[index-1].cardId)
     }
 }
 
@@ -212,7 +213,14 @@ function moveCardDown(index){
         cardsArray[index] = cardsArray[index+1]
         cardsArray[index+1] = temp
         updateAllCardsHTML()
+        scrollTo(cardsArray[index+1].cardId)
     }
+}
+
+function deleteCard(index){
+    if(!confirm(`您确定要删除卡片${cardsArray[index].cardId}吗？`)) return
+    cardsArray.splice(index,1)
+    updateAllCardsHTML()
 }
 
 
@@ -230,7 +238,9 @@ function createCardHTML(cardObject, index) {
                         .replace(/#timeLimit#/g, cardObject.timeLimit == 0 ? "否":"是" );
 
     cardObject.actions.forEach(element => {
-        var effect = `好感${element.playerData[0]}，情趣${element.playerData[1]}，财富${element.playerData[2]}，亲友${element.playerData[3]} - 转入${element.nextCardId}`
+        var effect = `好感${element.playerData[0]}，情趣${element.playerData[1]}，财富${element.playerData[2]}，亲友${element.playerData[3]}
+                        <br><a class="accent_color2" href="javascript:scrollTo('${element.nextCardId}')")'>转入${element.nextCardId}</a>`
+        // document.getElementById(`link${element.nextCardId}`).onclick = function(){scrollTo(element.nextCardId)} //set scroll to anchor
         html = html.replace(`#action${element.order}Title#`, actionSelector(cardObject.cardType, element.order))
                     .replace(`#action${element.order}Text#`, element.text)
                     .replace(`#action${element.order}effect#`, effect);
@@ -338,7 +348,7 @@ function readFromLocal(){
 function importPlainText(concat){
     var cards = parsePlainText(document.getElementById("plainText").value)
     if(concat){
-        cardsArray.concat(cards)
+        cardsArray = cardsArray.concat(cards)
     }else{
         cardsArray = cards
     }
@@ -350,3 +360,23 @@ function importPlainText(concat){
 
 
 readFromLocal()
+
+
+
+//------------------------Page actions
+function scrollTo(id) {
+    var elmnt = document.getElementById(id);
+    if(elmnt){
+        elmnt.scrollIntoView({ 
+            behavior: 'smooth' 
+        });
+    }else{
+        alert(`找不到ID为“${id}”的卡片`);
+    }
+  }
+
+
+function confirmEdit(text){
+    var r = confirm(text);
+    return r;
+}
