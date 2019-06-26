@@ -1,13 +1,34 @@
-var text = 
-`02b.（接01超时） 在你沉默的时候，女朋友一通抢白:“电话不接，微信也不回，你是什么意思吗！”掏出手机一看，有好多未接来电……（开始倒数计时）
+var exmapleText = 
+`06a. （接05a右）听你这么说，女朋友开心极了，对你“啾咪”了一下，然后挽起你的胳膊走向影院。
+左：先合拍几张，去朋友圈撒狗粮！（情趣++，好感++）转入07
+右：抓紧买票，今天有大片上映！（情趣-，好感+）转入07
+
+02b.（接01超时） 在你沉默的时候，女朋友一通抢白:“电话不接，微信也不回，你是什么意思吗！”掏出手机一看，有好多未接来电……（开始倒数计时）
 左：在开车，没注意。（好感--）转入03b
 超时：刚才和我妈视频来着。（亲友++，好感-）转入03b
-右：看电影之前调了静音。（情趣-）转入03b`
+右：看电影之前调了静音。（情趣-）转入03b
 
+03b.（接02b） “是吗？手机拿来！”女朋友沉着脸，对你伸出手。（开始倒数计时）
+左：立马交出手机（好感+，亲友+，情趣-）转入04b
+超时：沉默（突然死亡。“分手吧！坦白你都做不到，算什么男朋友！”）
+右：“宝贝，不生气了好不好？”（突然死亡。“分手吧！你就知道糊弄我！”）
+`
+var defaultAction = {order:3, text:"", nextCardId: null, playerData: [0,0,0,0]}
 var bracketRegex = /（[^）]*）/g
-    
 
-function getBlockObject(){
+
+//parse muiltple lines, divided by two \n
+function parsePlainText(text){
+    var blocks = text.split("\n\n")
+    var cardsArray = []
+    blocks.forEach(element => {
+        console.log(element)
+        cardsArray.push(getBlockObject(element))
+    });
+    return cardsArray
+}
+
+function getBlockObject(text){
     var sentence = text.split("\n")
     console.log(sentence)
     //process story line (sentence[0])
@@ -17,9 +38,10 @@ function getBlockObject(){
     var comments = sentence[0].match(bracketRegex).toString() //get all content that are bracketed
     var instructionText = sentence[0].substring(indexOfDot+1, sentence[0].length).replace(bracketRegex,"").trim()
     var timeLimit = comments.indexOf("开始倒数计时") == -1 ? 0 : 1
-    var actions = [ getActionObject(sentence[1]),
-                    getActionObject(sentence[2]),
-                    getActionObject(sentence[3])];
+    var actions = [defaultAction,defaultAction,defaultAction];
+    for(var i = 0; i < sentence.length-1; i++){
+        actions[i] = getActionObject(sentence[i+1])
+    }
 
     var newCardObject = new Object;
     newCardObject.cardId = cardId
