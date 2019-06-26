@@ -248,25 +248,33 @@
                    <div class="sidepannel_content hidden" id="pannel_run">
                       <div class="sidepannel_title">剧情包测试</div>
 
-                      <div class="run_block center_div contente">
-                          <div id="run_title">
-                            下了一个月的雨之后，终于放晴了，女朋友开心地打电话约你出来看电影。
+                      <div class="run_block center_div contente" id="runBlock" style="visibility: hidden">
+                          <div id="runInstruction">
+                            <!-- 故事 -->
                           </div>
                           <div class="mdl-layout-spacer"></div>
                           <div>
-                            <div class="accent_color2 run_option">
-                                马上出门赴约。
+                            <div class="accent_color2 run_option" id="runAction1">
+                                <!-- 左滑 -->
                             </div>
-                            <div class="accent_color2 run_option">
-                                “宝贝，我错了！”赶紧道歉。
+                            <div class="accent_color2 run_option" id="runAction2">
+                                <!-- 右滑 -->
                             </div>
-                            <div class="accent_color2 run_option">
-                                “是我来晚了，宝贝。”撒个娇“是我来晚了，宝贝。”撒个娇“是我来晚了，宝贝。”
+                            <div class="accent_color2 run_option" id="runAction3">
+                                <!-- 超时 -->
                             </div>
                           </div>
                       </div>
+                    
+
+                      <div class="editor_actions" style="min-height: 100px;">
+                          <div class="actions_label">历史记录</div>
+                          <div id="runHistory">暂无历史，立即开始测试即可记录</div>
+                        </div>
 
                     </div>
+
+
 
 
               </div>
@@ -360,6 +368,7 @@
             </div>
           </main>
         </div>
+        <script src="runTest.js"></script>
         <script src="textToJson.js"></script>
         <script src="script.js"></script>
 </body>
