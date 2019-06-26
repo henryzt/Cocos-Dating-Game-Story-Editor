@@ -2,7 +2,10 @@
 
 function setRunCard(id){
     console.log(id)
-    var card = cardsArray[findIndex(id)]
+    let runBlock = document.getElementById("runBlock")
+    runBlock.classList.toggle('flip');
+
+    let card = cardsArray[findIndex(id)]
     document.getElementById("runInstruction").innerHTML = card.instructionText;
     for(var i = 0; i < 3; i++){
         let action = document.getElementById(`runAction${i+1}`);
@@ -28,6 +31,14 @@ function setRunCard(id){
     var history = document.getElementById("runHistory").innerHTML
     history = history + `<a class="run-history-btn mdl-button mdl-js-button mdl-button--primary" href="javascript:scrollTo('${id}')">${id}</a>`
     document.getElementById("runHistory").innerHTML = history
+
+    runBlock.classList.remove("success_card_background")
+    runBlock.classList.remove("fail_card_background")
+    if(card.cardType=="success"){
+        runBlock.classList.add("success_card_background")
+    }else if(card.cardType=="fail"){
+        runBlock.classList.add("fail_card_background")
+    }
 }
 
 

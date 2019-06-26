@@ -173,6 +173,13 @@ body{
     padding: 25px;
     display: flex;
     flex-direction: column;
+
+    transition: transform 1s;
+    transform-style: preserve-3d;
+  }
+
+  .run_block.flip {
+    transform: rotateY(360deg);
   }
 
 
