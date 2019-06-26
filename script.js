@@ -340,8 +340,9 @@ function importPlainText(concat){
     if(concat){
         cardsArray.concat(cards)
     }else{
-        cardsArray =  cards
+        cardsArray = cards
     }
+    console.log(cardsArray)
     updateAllCardsHTML()
 }
 

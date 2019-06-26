@@ -48,6 +48,7 @@ function parsePlainText(text){
         console.log(element)
         cardsArray.push(getBlockObject(element))
     });
+    console.log(cardsArray)
     return cardsArray
 }
 
@@ -58,9 +59,10 @@ function getBlockObject(text){
     var indexOfDot = sentence[0].indexOf(".")
 
     var cardId = sentence[0].substring(0, indexOfDot) //get ID before dot
-    var comments = sentence[0].match(bracketRegex).toString() //get all content that are bracketed
-    var instructionText = sentence[0].substring(indexOfDot+1, sentence[0].length).replace(bracketRegex,"").trim()
+    var comments = sentence[0].match(bracketRegex) //get all content that are bracketed
+    comments = comments? comments.toString() : "";
     var timeLimit = comments.indexOf("开始倒数计时") == -1 ? 0 : 1
+    var instructionText = sentence[0].substring(indexOfDot+1, sentence[0].length).replace(bracketRegex,"").trim()
     var actions = [defaultAction,defaultAction,defaultAction];
     for(var i = 0; i < sentence.length-1; i++){
         actions[i] = getActionObject(sentence[i+1])
@@ -116,8 +118,9 @@ function actionOrderSelector(orderText){
 
 //change player data needed to a json array with respective order
 function getPlayerDataChange(dataText){
-    var data = dataText.replace("+++","3").replace("++","2").replace("+","1")
-                       .replace("---","##3").replace("--","##2").replace("-","##1").replace("##","-");
+    var data = dataText.replace(/\+\+\+/g,"3").replace(/\+\+/g,"2").replace(/\+/g,"1")
+                       .replace(/---/g,"##3").replace(/--/g,"##2").replace(/-/g,"##1").replace(/##/g,"-");
+    console.log(data)
     var datas = data.split("，")
     var result = [0,0,0,0] //好感，情趣，财富，亲友
     datas.forEach(element => {
