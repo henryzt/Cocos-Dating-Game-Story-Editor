@@ -252,7 +252,7 @@
                   <script type="text/html" id="card_template">
                     <div class="mdl-shadow--2dp center_div content" >
                         <div class="mdl-grid card_display" id="#cardId#">
-                            <div class="mdl-cell mdl-cell--6-col" style="padding-right:20px;">
+                            <div class="mdl-cell mdl-cell--6-col" id="right_padding">
                                 <div>
                                   <span class="mdl-chip"><span class="mdl-chip__text">卡片ID</span></span>
                                   <div id="dCardId" class="card_oneline_text accent_color">#cardId#</div>
@@ -303,14 +303,14 @@
                             </div>
                           </div>
 
-                      <div class="mdl-card__actions mdl-card--border" style="display:flex;">
+                      <div class="mdl-card__actions mdl-card--border" style="display:flex; flex-wrap: wrap;">
                         <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" onclick="openEditorWithCardIndex(#index#)">
                           编辑
                         </a>
                         <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" onclick="deleteCard(#index#)">
                             删除
                         </a>
-                        <div class="mdl-layout-spacer"></div>
+                        <div class="mdl-layout-spacer" id="action_spacer"></div>
                         <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" onclick="moveCardUp(#index#)">
                             上移
                         </a>
