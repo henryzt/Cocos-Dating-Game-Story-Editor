@@ -205,6 +205,26 @@
                             </button>
                           </div>
                       </div>
+
+                      <div class="sidepannel_title" id="editor_title" style="margin-top:50px;">纯文本剧本导入</div>
+
+                      <div class="mdl-grid">
+                          <div class="mdl-cell mdl-cell--12-col">
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="ePlainText">
+                                <textarea class="mdl-textfield__input" type="text" rows="10" id="plainText" style="height: 300px;"></textarea>
+                                <label class="mdl-textfield__label" for="plainText">在此处粘贴纯文本剧本</label>
+                            </div>
+
+                            <br>
+                            <pre style="white-space: pre-wrap;" id="plainTextInstruction"></pre>
+                            <button onclick="importPlainText(fasle)" style="width: 60%;" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                                导入纯文本剧情，覆盖已有剧情
+                            </button>
+                            <button onclick="importPlainText(true)" style="width: 60%;" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                                导入纯文本剧情，添加到已有剧情
+                            </button>
+                          </div>
+                      </div>
                     
                   </div>
 
@@ -300,7 +320,7 @@
             </div>
           </main>
         </div>
-    
+        <script src="textToJson.js"></script>
         <script src="script.js"></script>
 </body>
 </html>

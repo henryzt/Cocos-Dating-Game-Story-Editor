@@ -1,3 +1,6 @@
+
+
+document.getElementById("plainTextInstruction").innerHTML = plainTextInsturction;
 //----------------------------editor sidebar
 
 var currentEditIndex; //current editing index
@@ -330,6 +333,16 @@ function readFromLocal(){
     }else{
         cardsArray = []
     }
+}
+
+function importPlainText(concat){
+    var cards = parsePlainText(document.getElementById("plainText").value)
+    if(concat){
+        cardsArray.concat(cards)
+    }else{
+        cardsArray =  cards
+    }
+    updateAllCardsHTML()
 }
 
 
