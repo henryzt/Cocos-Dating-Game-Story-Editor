@@ -1,15 +1,26 @@
 
 
 function setRunCard(id){
+    console.log(id)
     var card = cardsArray[findIndex(id)]
     document.getElementById("runInstruction").innerHTML = card.instructionText;
     for(var i = 0; i < 3; i++){
-        if(card.actions[i].text){
-            document.getElementById(`runAction${i+1}`).innerHTML = `【${actionSelector(card.cardType, card.actions[i].order)}】${card.actions[i].text}`;
-            var nextCardId = card.actions[i].nextCardId
-            document.getElementById(`runAction${i+1}`).onclick = function(){
-                setRunCard(nextCardId)
+        var action = document.getElementById(`runAction${i+1}`);
+        if(card.actions[i].text.length > 1){
+            action.innerHTML = `【${actionSelector(card.cardType, card.actions[i].order)}】${card.actions[i].text}`;
+        }else{
+            action.innerHTML = "(无文本)"
+        }
+
+        var nextCardId = card.actions[i].nextCardId
+        
+        if(nextCardId){
+            var nextId = nextCardId
+            action.onclick = function(){
+                setRunCard(nextId)
             }
+        }else{
+            action.onclick = ""
         }
             
     }
