@@ -7,6 +7,7 @@ var text =
 var bracketRegex = /（[^）]*）/g
     
 
+function getBlockObject(){
     var sentence = text.split("\n")
     console.log(sentence)
     //process story line (sentence[0])
@@ -16,20 +17,59 @@ var bracketRegex = /（[^）]*）/g
     var comments = sentence[0].match(bracketRegex).toString() //get all content that are bracketed
     var instructionText = sentence[0].substring(indexOfDot+1, sentence[0].length).replace(bracketRegex,"").trim()
     var timeLimit = comments.indexOf("开始倒数计时") == -1 ? 0 : 1
+    var actions = [ getActionObject(sentence[1]),
+                    getActionObject(sentence[2]),
+                    getActionObject(sentence[3])];
+
+    var newCardObject = new Object;
+    newCardObject.cardId = cardId
+    newCardObject.cardType = "swipe"
+    newCardObject.timeLimit = timeLimit
+    newCardObject.instructionText = instructionText
+    newCardObject.cardText = null
+    newCardObject.cardImage = null
+    newCardObject.comment = comments
+    newCardObject.actions = actions;
+    return newCardObject;
+}
 
 
-    var actionLine = sentence[2];
+function getActionObject(actionLine){
     var indexOfColon = actionLine.indexOf("：")
     var indexOfCommentLeft = actionLine.lastIndexOf("（")
     var indexOfCommentRight = actionLine.lastIndexOf("）")
     var indexOfLastCardId = actionLine.lastIndexOf("转入") + 2
-    var actionOrder = actionLine.substring(0, indexOfColon)
+    var actionOrder = actionOrderSelector( actionLine.substring(0, indexOfColon) )
     var actionText = actionLine.substring(indexOfColon+1, indexOfCommentLeft)
     var actionNextCardId = actionLine.substring(indexOfLastCardId, actionLine.length)
     var dataText = actionLine.substring(indexOfCommentLeft+1, indexOfCommentRight)
     var actionData = getPlayerDataChange(dataText)
 
+    var actionsObject = new Object()
+    actionsObject.order = actionOrder
+    actionsObject.text = actionText
+    actionsObject.nextCardId = actionNextCardId
+    actionsObject.playerData = actionData
 
+    return actionsObject;
+}
+
+
+//order selector
+function actionOrderSelector(orderText){
+    switch(orderText){
+        case "左":
+            return 1;
+        case "右":
+            return 2;
+        case "超时":
+            return 3;
+    }
+    return -1;
+}
+
+
+//change player data needed to a json array with respective order
 function getPlayerDataChange(dataText){
     var data = dataText.replace("+++","3").replace("++","2").replace("+","1")
                        .replace("---","##3").replace("--","##2").replace("-","##1").replace("##","-");
