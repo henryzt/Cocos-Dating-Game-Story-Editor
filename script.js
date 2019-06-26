@@ -11,6 +11,7 @@ function openSidePanel(panelName) {
     sidePanelOpen = true
     hideAllPanel()
     document.getElementById("pannel_" + panelName).setAttribute("class","sidepannel_content");
+    document.getElementById("closebtn").setAttribute("class","closebtn");
     resizeSidePanel()
 }
 
@@ -20,6 +21,7 @@ function closeSidePanel() {
     document.getElementById("error").innerHTML = ""
     document.getElementById("sidepannel").style.width = 0;
     document.getElementById("main").style.marginRight= 0;
+    document.getElementById("closebtn").setAttribute("class","hidden");
 }
 
 function resizeSidePanel(){
@@ -335,6 +337,19 @@ function importJson(json){
 function saveToLocal(){
     localStorage.setItem('json', exportJson())
 }
+
+function download(content, fileName, contentType) {
+    var a = document.createElement("a");
+    var file = new Blob([content], {type: contentType});
+    a.href = URL.createObjectURL(file);
+    a.download = fileName;
+    a.click();
+}
+
+function downloadJson(){
+    download(exportJson(),`剧情包${new Date().getTime()}.json`, 'application/json')
+}
+
 
 function readFromLocal(){
     var local = localStorage.getItem('json')

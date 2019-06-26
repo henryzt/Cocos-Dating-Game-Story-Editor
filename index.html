@@ -25,8 +25,8 @@
             <div class="mdl-layout-spacer"></div>
             <!-- Navigation. We hide it in small screens. -->
             <nav class="mdl-navigation ">
-              <a class="mdl-navigation__link" onclick="openSidePanel('json')">上传</a>
-              <a class="mdl-navigation__link" onclick="openSidePanel('json')">导出</a>
+              <a class="mdl-navigation__link" href="javascript:openSidePanel('json');window.setTimeout(function(){scrollTo('plain_text_divider')},500);">导入</a>
+              <a class="mdl-navigation__link" onclick="openSidePanel('json')">下载</a>
               <a class="mdl-navigation__link" onclick="openSidePanel('run')">测试</a>
             </nav>
           </div>
@@ -36,7 +36,7 @@
 
               <!-- Side pannel -->
               <div id="sidepannel" class="sidepannel">
-                  <a href="javascript:void(0)" class="closebtn" onclick="closeSidePanel()">&times;</a>
+                  <a href="javascript:void(0)" id="closebtn" class="closebtn hidden" onclick="closeSidePanel()">&times;</a>
 
                   <!-- Editor pannel -->
                   <div class="sidepannel_content hidden"  id="pannel_editor">
@@ -184,7 +184,7 @@
 
                   <!-- Json pannel -->
                   <div class="sidepannel_content hidden" id="pannel_json">
-                      <div class="sidepannel_title" id="editor_title">JSON导出与上传</div>
+                      <div class="sidepannel_title">JSON导出与上传</div>
 
                       <div class="mdl-grid">
                           <div class="mdl-cell mdl-cell--12-col">
@@ -192,21 +192,34 @@
                                 <textarea class="mdl-textfield__input" type="text" rows="10" id="jsonEditor" style="height: 300px;"></textarea>
                                 <label class="mdl-textfield__label" for="jsonEditor">在此处输入JSON</label>
                             </div>
+                          </div>
 
+                          <div class="mdl-cell mdl-cell--6-col">
                             <br>
                             <p>导出编辑器内的JSON到文本框中</p>
-                            <button onclick="exportJson()" style="width: 40%;" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                            <button onclick="exportJson()" style="width: 60%;" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
                                 生成JSON
                             </button>
 
                             <p style="padding-top:30px;">将文本框中的JSON导入到编辑器内</p>
-                            <button onclick="importJson()" style="width: 40%;" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                            <button onclick="importJson()" style="width: 60%;" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
                                 导入JSON
                             </button>
                           </div>
+
+                          <div class="mdl-cell mdl-cell--6-col">
+                            <br>
+                            <p>下载JSON包</p>
+                            <button onclick="downloadJson()" id="download_json" style="width: 60%;" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                                下载JSON
+                            </button>
+
+                          </div>
                       </div>
 
-                      <div class="sidepannel_title" id="editor_title" style="margin-top:50px;">纯文本剧本导入</div>
+                      <hr style="margin-top:30px" id="plain_text_divider" >
+
+                      <div class="sidepannel_title" style="margin-top:50px;">纯文本剧本导入</div>
 
                       <div class="mdl-grid">
                           <div class="mdl-cell mdl-cell--12-col">

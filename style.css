@@ -57,9 +57,9 @@ body{
   }
   
   .sidepannel .closebtn {
-    position: absolute;
-    top: 25px;
-    right: 25px;
+    position: fixed;
+    top: 100px;
+    right: 40px;
     font-size: 36px;
     margin-left: 50px;
   }
