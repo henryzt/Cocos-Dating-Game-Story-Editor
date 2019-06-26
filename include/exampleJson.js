@@ -8,17 +8,17 @@ var templatePack = [{
     timeLimit: 1,
     comment: null,
     actions: [{
-        order: 1,
+        order: 1, //左滑
         text: "“宝贝，我错了！”赶紧道歉",
         nextCardId: "02a",
-        playerData: [-1,0,0,0]
+        playerData: [-1,0,0,0]  //好感，情趣，财富，亲友
     },{
-        order: 2,
+        order: 2, //右滑
         text: "“宝贝，谁欺负你了？”",
         nextCardId: "02c",
         playerData: [1,1,0,0]
     },{
-        order: 3,
+        order: 3, //超时
         text: "沉默",
         nextCardId: "02b",
         playerData: [-2,0,0,0]
