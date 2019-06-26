@@ -5,18 +5,19 @@ function setRunCard(id){
     var card = cardsArray[findIndex(id)]
     document.getElementById("runInstruction").innerHTML = card.instructionText;
     for(var i = 0; i < 3; i++){
-        var action = document.getElementById(`runAction${i+1}`);
+        let action = document.getElementById(`runAction${i+1}`);
         if(card.actions[i].text.length > 1){
             action.innerHTML = `【${actionSelector(card.cardType, card.actions[i].order)}】${card.actions[i].text}`;
         }else{
             action.innerHTML = "(无文本)"
         }
 
-        var nextCardId = card.actions[i].nextCardId
-        
+        let nextCardId = card.actions[i].nextCardId
+        console.log(nextCardId)
         if(nextCardId){
-            var nextId = nextCardId
-            action.onclick = function(){
+            let nextId = nextCardId.toString()
+            document.getElementById(`runAction${i+1}`).setAttribute("href", nextId)
+            document.getElementById(`runAction${i+1}`).onclick = function(){
                 setRunCard(nextId)
             }
         }else{
