@@ -303,6 +303,21 @@
                                       开始新的测试
                                   </button>
                                 </div>
+                              <div class="mdl-cell mdl-cell--6-col">
+                                  <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="autoScroll">
+                                      <input type="checkbox" id="autoScroll" class="mdl-checkbox__input" >
+                                      <span class="mdl-checkbox__label">自动滚动到当前卡片</span>
+                                    </label>
+                                </div>
+                                <div class="mdl-cell mdl-cell--12-col">
+                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="width: 50%;" id="eSkipCardId">
+                                        <input class="mdl-textfield__input" type="text" id="skipCardId">
+                                        <label class="mdl-textfield__label" for="skipCardId">跳转卡片ID</label>
+                                      </div>
+                                    <button onclick="skipToCard()" style="width:45%;" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                                        从此卡开始
+                                    </button>
+                                  </div>
                           </div>
                         </div>
 

@@ -3,6 +3,11 @@ var currentPlayerValue = [50,50,50,50]
 
 function setRunCard(id){
     console.log(id)
+    updateTextfield("eSkipCardId", id)
+    if(document.getElementById("autoScroll").checked){
+        scrollTo(id)
+    }
+
     let runBlock = document.getElementById("runBlock")
     runBlock.classList.toggle('flip');
 
@@ -32,7 +37,7 @@ function setRunCard(id){
             
     }
     var history = document.getElementById("runHistory").innerHTML
-    history = history + `<a class="run-history-btn mdl-button mdl-js-button mdl-button--primary" href="javascript:scrollTo('${id}')">${id}</a>`
+    history = history + `<a class="run-history-btn mdl-button mdl-js-button mdl-button--primary" href="javascript:scrollTo('${id}');updateTextfield('eSkipCardId', '${id}')">${id}</a>`
     document.getElementById("runHistory").innerHTML = history
 
     runBlock.classList.remove("success_card_background")
@@ -68,4 +73,9 @@ function startNewRunTest(){
     document.getElementById("runBlock").setAttribute("style","");
     document.getElementById("runHistory").innerHTML = ""
     setRunCard(cardsArray[0].cardId)
+}
+
+
+function skipToCard(){
+    setRunCard(document.getElementById("skipCardId").value)
 }
