@@ -40,9 +40,9 @@ var defaultAction = {order:3, text:"", nextCardId: null, playerData: [0,0,0,0]}
 var bracketRegex = /（[^）]*）/g
 
 
-//parse muiltple lines, divided by two \n
+//parse muiltple lines, divided by ***
 function parsePlainText(text){
-    var blocks = text.split("\n\n")
+    var blocks = text.split("***")
     var cardsArray = []
     blocks.forEach(element => {
         console.log(element)
@@ -53,18 +53,23 @@ function parsePlainText(text){
 }
 
 function getBlockObject(text){
-    var sentence = text.split("\n")
+    var sentence = text.split("@")
     console.log(sentence)
-    //process story line (sentence[0])
-    var indexOfDot = sentence[0].indexOf(".")
+    // process story line (sentence[0])
+    // @卡片ID#备注#说明文本#是否倒计时（若倒计时则写倒计时，没有则空）
+    var section = sentence[0].split("#")
 
-    var cardId = sentence[0].substring(0, indexOfDot) //get ID before dot
-    var comments = sentence[0].match(bracketRegex) //get all content that are bracketed
+    var cardId = section[0]
+    var comments = section[1]
     comments = comments? comments.toString() : "";
-    var timeLimit = comments.indexOf("开始倒数计时") == -1 ? 0 : 1
-    var instructionText = sentence[0].substring(indexOfDot+1, sentence[0].length).replace(bracketRegex,"").trim()
+    var instructionText = section[2]
+    var timeLimit = section[3].indexOf("倒计时") == -1 ? 0 : 1
+
+    // process 属性 and 操作 (action) lines
+    var cardType = "swipe"
     var actions = [defaultAction,defaultAction,defaultAction];
     for(var i = 0; i < sentence.length-1; i++){
+        //TODO process属性
         actions[i] = getActionObject(sentence[i+1])
     }
 
