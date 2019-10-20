@@ -36,7 +36,7 @@ var exmapleText =
 超时：沉默（突然死亡。“分手吧！坦白你都做不到，算什么男朋友！”）
 右：“宝贝，不生气了好不好？”（突然死亡。“分手吧！你就知道糊弄我！”）
 `
-var defaultAction = {order:3, text:"", nextCardId: null, playerData: [0,0,0,0]}
+var defaultAction = {order:3, text:"", nextCardId: null, playerData: 0}
 var bracketRegex = /（[^）]*）/g
 
 
@@ -89,14 +89,13 @@ function getBlockObject(text){
 
 
 function getActionObject(actionLine){
-    var indexOfColon = actionLine.indexOf("：")
-    var indexOfCommentLeft = actionLine.lastIndexOf("（")
-    var indexOfCommentRight = actionLine.lastIndexOf("）")
-    var indexOfLastCardId = actionLine.lastIndexOf("转入") + 2
-    var actionOrder = actionOrderSelector( actionLine.substring(0, indexOfColon) )
-    var actionText = actionLine.substring(indexOfColon+1, indexOfCommentLeft)
-    var actionNextCardId = actionLine.substring(indexOfLastCardId, actionLine.length)
-    var dataText = actionLine.substring(indexOfCommentLeft+1, indexOfCommentRight)
+    var section = actionLine.split("#");
+    console.log(section)
+
+    var actionOrder = actionOrderSelector( section[0] )
+    var actionText = section[1] 
+    var actionNextCardId = section[3] ? section[3].replace("转入","").replace("转到","") : "";
+    var dataText = section[2]
     var actionData = getPlayerDataChange(dataText)
 
     var actionsObject = new Object()
@@ -125,6 +124,7 @@ function actionOrderSelector(orderText){
 
 //change player data needed to a json array with respective order
 function getPlayerDataChange(dataText){
+    if(!dataText) return
     var data = dataText.replace(/\+\+\+/g,"3").replace(/\+\+/g,"2").replace(/\+/g,"1")
                        .replace(/---/g,"##3").replace(/--/g,"##2").replace(/-/g,"##1").replace(/##/g,"-");
 
@@ -132,7 +132,7 @@ function getPlayerDataChange(dataText){
     var result = 0
     var match = data.substring(0,2)
     var value = data.substring(2,5)
-    if(match == "好感") result = Number(value)
+    if(match == "情绪") result = Number(value)
 
     return result;
 }

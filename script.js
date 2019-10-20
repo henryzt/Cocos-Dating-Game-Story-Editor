@@ -89,7 +89,7 @@ function updateEditorContent(cardObject){
         document.getElementById(`actionTitle${element.order}`).innerHTML = actionSelector(cardObject.cardType, element.order)
         updateTextfield(`eActionCardText${element.order}`, element.text ) 
         updateTextfield(`eNextCardId${element.order}`, element.nextCardId ) 
-        updateTextfield(`eInterest${element.order}`, element.playerData[0] ) 
+        updateTextfield(`eInterest${element.order}`, element.playerData) 
     });
 }
 
@@ -127,7 +127,7 @@ function saveEditorContentToObjct(){
         actionsObject[i].order = i+1
         actionsObject[i].text = document.getElementById(`actionCardText${i+1}`).value
         actionsObject[i].nextCardId = document.getElementById(`nextCardId${i+1}`).value
-        actionsObject[i].playerData = [ document.getElementById(`interest${i+1}`).value?document.getElementById(`interest${i+1}`).value:0]
+        actionsObject[i].playerData = document.getElementById(`interest${i+1}`).value?document.getElementById(`interest${i+1}`).value:0
     }
     newCardObject.actions = actionsObject;
     return newCardObject;
@@ -235,7 +235,7 @@ function createCardHTML(cardObject, index) {
     cardObject.actions.forEach(element => {
         var effect = "";
         if(element.playerData){
-            effect += `情绪${element.playerData[0]}`
+            effect += `情绪${element.playerData}`
         }
         if(element.nextCardId){
             effect += `<br><a class="accent_color2" href="javascript:scrollTo('${element.nextCardId}')")'>转入${element.nextCardId}</a>`
