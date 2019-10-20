@@ -45,6 +45,7 @@ function parsePlainText(text){
     var blocks = text.split("***")
     var cardsArray = []
     blocks.forEach(element => {
+        if(!element || element.length < 3) return
         console.log(element)
         cardsArray.push(getBlockObject(element))
     });
@@ -54,6 +55,7 @@ function parsePlainText(text){
 
 function getBlockObject(text){
     var sentence = text.split("@")
+    if(sentence[0].length<2){sentence.shift()}
     console.log(sentence)
     // process story line (sentence[0])
     // @卡片ID#备注#说明文本#是否倒计时（若倒计时则写倒计时，没有则空）
@@ -63,7 +65,7 @@ function getBlockObject(text){
     var comments = section[1]
     comments = comments? comments.toString() : "";
     var instructionText = section[2]
-    var timeLimit = section[3].indexOf("倒计时") == -1 ? 0 : 1
+    var timeLimit = section[3]? (section[3].indexOf("倒计时") == -1 ? 0 : 1) : 0
 
     // process 属性 and 操作 (action) lines
     var cardType = "swipe"
@@ -125,17 +127,13 @@ function actionOrderSelector(orderText){
 function getPlayerDataChange(dataText){
     var data = dataText.replace(/\+\+\+/g,"3").replace(/\+\+/g,"2").replace(/\+/g,"1")
                        .replace(/---/g,"##3").replace(/--/g,"##2").replace(/-/g,"##1").replace(/##/g,"-");
+
     console.log(data)
-    var datas = data.split("，")
-    var result = [0,0,0,0] //好感，情趣，财富，亲友
-    datas.forEach(element => {
-        var match = element.substring(0,2)
-        var value = element.substring(2,5)
-        if(match == "好感") result[0] = Number(value)
-        if(match == "情趣") result[1] = Number(value)
-        if(match == "财富") result[2] = Number(value)
-        if(match == "亲友") result[3] = Number(value)
-    });
+    var result = 0
+    var match = data.substring(0,2)
+    var value = data.substring(2,5)
+    if(match == "好感") result = Number(value)
+
     return result;
 }
                         

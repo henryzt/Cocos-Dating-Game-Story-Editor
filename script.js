@@ -90,9 +90,6 @@ function updateEditorContent(cardObject){
         updateTextfield(`eActionCardText${element.order}`, element.text ) 
         updateTextfield(`eNextCardId${element.order}`, element.nextCardId ) 
         updateTextfield(`eInterest${element.order}`, element.playerData[0] ) 
-        updateTextfield(`eLove${element.order}`, element.playerData[1] ) 
-        updateTextfield(`eWealth${element.order}`, element.playerData[2] ) 
-        updateTextfield(`eFamily${element.order}`, element.playerData[3] ) 
     });
 }
 
@@ -111,9 +108,7 @@ function createNewEditorContent(){
         updateTextfield(`eActionCardText${i}`, null ) 
         updateTextfield(`eNextCardId${i}`, null ) 
         updateTextfield(`eInterest${i}`, 0 )
-        updateTextfield(`eLove${i}`, 0 ) 
-        updateTextfield(`eWealth${i}`, 0 ) 
-        updateTextfield(`eFamily${i}`, 0 ) 
+
     };
 }
 
@@ -132,10 +127,7 @@ function saveEditorContentToObjct(){
         actionsObject[i].order = i+1
         actionsObject[i].text = document.getElementById(`actionCardText${i+1}`).value
         actionsObject[i].nextCardId = document.getElementById(`nextCardId${i+1}`).value
-        actionsObject[i].playerData = [ document.getElementById(`interest${i+1}`).value?document.getElementById(`interest${i+1}`).value:0,
-                                        document.getElementById(`love${i+1}`).value?document.getElementById(`love${i+1}`).value:0,
-                                        document.getElementById(`wealth${i+1}`).value?document.getElementById(`wealth${i+1}`).value:0,
-                                        document.getElementById(`family${i+1}`).value?document.getElementById(`family${i+1}`).value:0]
+        actionsObject[i].playerData = [ document.getElementById(`interest${i+1}`).value?document.getElementById(`interest${i+1}`).value:0]
     }
     newCardObject.actions = actionsObject;
     return newCardObject;
@@ -243,7 +235,7 @@ function createCardHTML(cardObject, index) {
     cardObject.actions.forEach(element => {
         var effect = "";
         if(element.playerData){
-            effect += `好感${element.playerData[0]}，情趣${element.playerData[1]}，财富${element.playerData[2]}，亲友${element.playerData[3]}`
+            effect += `情绪${element.playerData[0]}`
         }
         if(element.nextCardId){
             effect += `<br><a class="accent_color2" href="javascript:scrollTo('${element.nextCardId}')")'>转入${element.nextCardId}</a>`
