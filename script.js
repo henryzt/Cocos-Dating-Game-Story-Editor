@@ -269,6 +269,8 @@ function cardTypeSelector(cardType){
             return "微信聊天";
         case "moments":
             return "微信朋友圈";
+        case "multi":
+            return "分手回避";
         case "fail":
             return "游戏失败";
         case "success":

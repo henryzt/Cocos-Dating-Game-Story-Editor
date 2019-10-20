@@ -1,4 +1,4 @@
-var currentPlayerValue = [50,50,50,50]
+var currentPlayerValue = 50
 
 
 function setRunCard(id){

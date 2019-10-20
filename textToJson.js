@@ -68,33 +68,87 @@ function getBlockObject(text){
     var timeLimit = section[3]? (section[3].indexOf("倒计时") == -1 ? 0 : 1) : 0
 
     // process 属性 and 操作 (action) lines
-    var cardType = "swipe"
     var actions = [defaultAction,defaultAction,defaultAction];
+    var property = {cardType:"swipe", cardImage:null, playerIcon:null, cardText:null, comments: null }
+
+    let actionCounter = 0;
     for(var i = 0; i < sentence.length-1; i++){
-        //TODO process属性
-        actions[i] = getActionObject(sentence[i+1])
+        let nextSentenceSections = sentence[i+1].split("#");
+        console.log(nextSentenceSections)
+
+        if(nextSentenceSections[0] == "属性"){
+            property = parseProperty(nextSentenceSections, property)
+        }else{
+            actions[actionCounter] = getActionObject(nextSentenceSections)
+            actionCounter ++;
+        }
     }
 
     var newCardObject = new Object;
     newCardObject.cardId = cardId
-    newCardObject.cardType = "swipe"
+    newCardObject.cardType = property.cardType
     newCardObject.timeLimit = timeLimit
     newCardObject.instructionText = instructionText
-    newCardObject.cardText = null
-    newCardObject.cardImage = null
-    newCardObject.comment = comments
+    newCardObject.cardText = property.cardText
+    newCardObject.cardImage = property.cardImage
+    newCardObject.playerIcon = property.playerIcon
+    newCardObject.comment = comments +" "+ property.comments
     newCardObject.actions = actions;
     return newCardObject;
 }
 
 
-function getActionObject(actionLine){
-    var section = actionLine.split("#");
-    console.log(section)
+function parseProperty(section, property){
+    
+    switch(section[1]){
+        case "卡片类型":
+            property.cardType = cardTypeSelectorInverse(section[2].slice(0, -1));
+            console.log(property.cardType)
+            break;
+        case "卡片文本":
+            property.cardText = section[2];
+            break;
+        case "图片地址":
+            property.cardImage = section[2];
+            break;
+        case "玩家头像":
+            property.playerIcon = section[2];
+            break;
+        default:
+            property.comments = section[2];
+            break;
+    }
+    return property;
+}
+
+
+function cardTypeSelectorInverse(cardType){
+
+    switch(cardType){
+        case "左右滑动":
+            return "swipe";
+        case "微信聊天":
+            return "chat";
+        case "微信朋友圈":
+            return "moments";
+        case "分手回避":
+            return "multi";
+        case "游戏失败":
+            return "fail";
+        case "游戏成功":
+            return "success";
+        default:
+            return "unknown";
+    }
+}
+
+
+function getActionObject(section){
+    
 
     var actionOrder = actionOrderSelector( section[0] )
     var actionText = section[1] 
-    var actionNextCardId = section[3] ? section[3].replace("转入","").replace("转到","") : "";
+    var actionNextCardId = section[3] ? section[3].replace("转入","").replace("转到","").replace("\n","") : "";
     var dataText = section[2]
     var actionData = getPlayerDataChange(dataText)
 
