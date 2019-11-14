@@ -61,6 +61,10 @@ function getBlockObject(text){
     // @卡片ID#备注#说明文本#是否倒计时（若倒计时则写倒计时，没有则空）
     var section = sentence[0].split("#")
 
+    if(section[0]=="tutorial"){
+        return getTutorialCard(section);
+    }
+
     var cardId = section[0]
     var comments = section[1]
     comments = comments? comments.toString() : "";
@@ -79,10 +83,13 @@ function getBlockObject(text){
         if(nextSentenceSections[0] == "属性"){
             property = parseProperty(nextSentenceSections, property)
         }else{
-            actions[actionCounter] = getActionObject(nextSentenceSections)
+            actions[actionCounter] = getActionObject(nextSentenceSections, property.cardType)
             actionCounter ++;
         }
     }
+
+    //reorder to correct postion
+    actions.sort((a, b) => (a.order > b.order) ? 1 : ((b.order > a.order) ? -1 : 0));
 
     var newCardObject = new Object;
     newCardObject.cardId = cardId
@@ -98,6 +105,23 @@ function getBlockObject(text){
 }
 
 
+function getTutorialCard(section){
+    var newCardObject = new Object;
+    newCardObject.cardId = section[1]
+    newCardObject.cardType = "tutorial"
+    newCardObject.instructionText = section[2]
+    newCardObject.nextCardId = section[3]
+
+    newCardObject.cardText = ""
+    newCardObject.cardImage = ""
+    newCardObject.playerIcon = ""
+    newCardObject.comment = ""
+    newCardObject.actions = [defaultAction,defaultAction,defaultAction];
+    newCardObject.timeLimit = ""
+    return newCardObject;
+}
+
+
 function parseProperty(section, property){
     
     switch(section[1]){
@@ -109,10 +133,10 @@ function parseProperty(section, property){
             property.cardText = section[2];
             break;
         case "图片地址":
-            property.cardImage = section[2];
+            property.cardImage = section[2].replace("\n","");
             break;
         case "玩家头像":
-            property.playerIcon = section[2];
+            property.playerIcon = section[2].replace("\n","");
             break;
         default:
             property.comments = section[2];
@@ -143,7 +167,7 @@ function cardTypeSelectorInverse(cardType){
 }
 
 
-function getActionObject(section){
+function getActionObject(section, cardType){
     
 
     var actionOrder = actionOrderSelector( section[0] )
@@ -158,6 +182,10 @@ function getActionObject(section){
     actionsObject.nextCardId = actionNextCardId
     actionsObject.playerData = actionData
 
+    if(cardType=="multi"){
+        actionsObject.wrongChoiceText = section[4] ? section[4] : "";
+    }
+
     return actionsObject;
 }
 
@@ -170,6 +198,14 @@ function actionOrderSelector(orderText){
         case "右":
             return 2;
         case "超时":
+            return 3;
+    }
+    switch(orderText){
+        case "选项1":
+            return 1;
+        case "选项2":
+            return 2;
+        case "选项3":
             return 3;
     }
     return -1;
