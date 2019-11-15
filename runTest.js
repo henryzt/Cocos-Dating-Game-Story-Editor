@@ -9,7 +9,7 @@ function setRunCard(id){
     }
 
     let runBlock = document.getElementById("runBlock")
-    runBlock.classList.toggle('flip');
+    // runBlock.classList.toggle('flip');
 
     let card = cardsArray[findIndex(id)]
     document.getElementById("runInstruction").innerHTML = card.instructionText;
@@ -26,6 +26,7 @@ function setRunCard(id){
         if(nextCardId){
             let nextId = nextCardId.toString()
             let valueChange = card.actions[i].playerData
+            console.log("!!!"+valueChange)
             document.getElementById(`runAction${i+1}`).setAttribute("href", nextId)
             document.getElementById(`runAction${i+1}`).onclick = function(){
                 updatePlayerValue(valueChange)
@@ -50,26 +51,20 @@ function setRunCard(id){
 }
 
 function updatePlayerValue(valueChange){
-    for(let i = 0; i < 4; i++){
-        currentPlayerValue[i] = currentPlayerValue[i] + valueChange[i] * 10
-    }
+
+    currentPlayerValue = currentPlayerValue + valueChange * 10
+
     console.log(currentPlayerValue)
 
-    document.querySelector('#pInterest').MaterialProgress.setProgress(currentPlayerValue[0]);
-    document.querySelector('#pLove').MaterialProgress.setProgress(currentPlayerValue[1]);
-    document.querySelector('#pWealth').MaterialProgress.setProgress(currentPlayerValue[2]);
-    document.querySelector('#pFamily').MaterialProgress.setProgress(currentPlayerValue[3]);
+    document.querySelector('#pInterest').MaterialProgress.setProgress(currentPlayerValue);
 
-    document.querySelector('#vInterest').innerHTML = (currentPlayerValue[0]);
-    document.querySelector('#vLove').innerHTML = (currentPlayerValue[1]);
-    document.querySelector('#vWealth').innerHTML = (currentPlayerValue[2]);
-    document.querySelector('#vFamily').innerHTML = (currentPlayerValue[3]);
+    document.querySelector('#vInterest').innerHTML = (currentPlayerValue);
 }
 
 
 function startNewRunTest(){
-    currentPlayerValue = [50,50,50,50]
-    updatePlayerValue([0,0,0,0])
+    currentPlayerValue = 50
+    updatePlayerValue(0)
     document.getElementById("runBlock").setAttribute("style","");
     document.getElementById("runHistory").innerHTML = ""
     setRunCard(cardsArray[0].cardId)
