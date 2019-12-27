@@ -26,7 +26,6 @@ function setRunCard(id){
         if(nextCardId){
             let nextId = nextCardId.toString()
             let valueChange = card.actions[i].playerData
-            console.log("!!!"+valueChange)
             document.getElementById(`runAction${i+1}`).setAttribute("href", nextId)
             document.getElementById(`runAction${i+1}`).onclick = function(){
                 updatePlayerValue(valueChange)
@@ -52,13 +51,11 @@ function setRunCard(id){
 
 function updatePlayerValue(valueChange){
 
-    currentPlayerValue = currentPlayerValue + valueChange * 10
-
-    console.log(currentPlayerValue)
+    currentPlayerValue += valueChange? parseInt(valueChange) * 10 : 0;
 
     document.querySelector('#pInterest').MaterialProgress.setProgress(currentPlayerValue);
 
-    document.querySelector('#vInterest').innerHTML = (currentPlayerValue);
+    document.querySelector('#vInterest').innerHTML = currentPlayerValue;
 }
 
 
