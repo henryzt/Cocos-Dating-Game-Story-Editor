@@ -240,10 +240,10 @@ function checkCardPackValid(cardsArray){
             errorList.push("卡片缺少ID!")
         }
         if(!element.instructionText){
-            warningList.push("【卡片"+element.cardId+"】缺少说明文本")
+            warningList.push("【卡片 - "+element.cardId+"】缺少说明文本")
         }
         if(!element.cardImage){
-            warningList.push("【卡片"+element.cardId+"】缺少图片")
+            warningList.push("【卡片 - "+element.cardId+"】缺少图片")
         }
 
         if(element.cardType == "fail" || element.cardType == "success"){
@@ -258,10 +258,10 @@ function checkCardPackValid(cardsArray){
         element.actions.forEach(action=>{
             if(action.order==3){ return }
             if(!action.text){
-                warningList.push("【卡片"+element.cardId+"】缺少动作文本")
+                warningList.push("【卡片 - "+element.cardId+"】缺少动作文本")
             }
             if(!document.getElementById(action.nextCardId)){
-                errorList.push("【卡片"+element.cardId+"】找不到下张ID为"+action.nextCardId+"的卡片！！")
+                errorList.push("【卡片 - "+element.cardId+"】找不到下张ID为"+action.nextCardId+"的卡片！！")
             }
         })
     });
@@ -275,6 +275,15 @@ function checkCardPackValid(cardsArray){
     console.log(errorList)
     console.log(warningList)
 
-    document.getElementById("validateErrors").innerHTML = errorList.toString().replace(",","<br>")
-    document.getElementById("validateWarnings").innerHTML = warningList.toString().replace(",","<br>")
+    document.getElementById("validateErrors").innerHTML = errorList.length>0? errorList.toString().replace(/,/g,"<br>") : "恭喜，没有格式错误"
+    document.getElementById("validateWarnings").innerHTML = warningList.length>0? warningList.toString().replace(/,/g,"<br>"): "恭喜，没有格式警告"
+    document.getElementById("validatResult").className = ""
+
+    if(errorList.length>0){
+        alert("剧本包基本格式检查失败，请修复下列格式错误，具体可参见'剧本包格式检查器'区域。\n"+errorList[0]);
+    }else if(warningList.length>0){
+        alert("剧本包基本格式检查完毕，剧本包中没有显著格式错误，但有格式警告可以修复，具体可参见'剧本包格式检查器'区域。");
+    }else{
+        alert("剧本包基本格式检查完毕，恭喜，没有格式错误或警告！请注意，这并不代表没有逻辑错误。")
+    }
 }

@@ -369,6 +369,7 @@ function importPlainText(concat){
     }
     console.log(cardsArray)
     updateAllCardsHTML()
+    checkCardPackValid(cardsArray)
 }
 
 
