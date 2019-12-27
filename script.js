@@ -43,6 +43,7 @@ window.addEventListener("resize", resizeSidePanel);
 function hideAllPanel(){
     document.getElementById("pannel_editor").setAttribute("class","hidden");
     document.getElementById("pannel_json").setAttribute("class","hidden");
+    document.getElementById("pannel_run").setAttribute("class","hidden");
 }
 
 function openEditorWithCardIndex(index){

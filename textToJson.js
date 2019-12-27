@@ -229,3 +229,49 @@ function getPlayerDataChange(dataText){
     return result;
 }
                         
+
+function checkCardPackValid(cardsArray){
+    var errorList = [];
+    var warningList = [];
+    var hasSuccess = false;
+    var hasFail = false;
+    cardsArray.forEach(element => {
+        if(!element.cardId){
+            errorList.push("卡片缺少ID!")
+        }
+        if(!element.instructionText){
+            warningList.push("【卡片"+element.cardId+"】缺少说明文本")
+        }
+        if(!element.cardImage){
+            warningList.push("【卡片"+element.cardId+"】缺少图片")
+        }
+
+        if(element.cardType == "fail" || element.cardType == "success"){
+            if(element.cardType == "fail"){
+                hasFail = true;
+            }else{
+                hasSuccess = true;
+            }
+            return
+        }
+
+        element.actions.forEach(action=>{
+            if(action.order==3){ return }
+            if(!action.text){
+                warningList.push("【卡片"+element.cardId+"】缺少动作文本")
+            }
+            if(!document.getElementById(action.nextCardId)){
+                errorList.push("【卡片"+element.cardId+"】找不到下张ID为"+action.nextCardId+"的卡片！！")
+            }
+        })
+    });
+
+    if(!hasFail){
+        errorList.push("卡包内没有游戏结束类型卡片！");
+    }
+    if(!hasSuccess){
+        errorList.push("卡包内没有游戏成功类型卡片！");
+    }
+    console.log(errorList)
+    console.log(warningList)
+}
