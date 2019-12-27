@@ -395,3 +395,7 @@ function confirmEdit(text){
     var r = confirm(text);
     return r;
 }
+
+function toggleplainTextInstruction(){
+    document.getElementById("plainTextInstruction").classList.toggle("hidden");
+}
