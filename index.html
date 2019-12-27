@@ -235,6 +235,34 @@
                           </div>
                       </div>
                     
+
+                      <hr style="margin-top:30px" id="plain_text_divider" >
+
+                      <div class="sidepannel_title" style="margin-top:50px;">剧本包格式检查器</div>
+
+                      <div class="mdl-grid">
+                          <div class="mdl-cell mdl-cell--12-col">
+                            <button onclick="checkCardPackValid(cardsArray);" style="width: 60%;margin-top:20px;" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                              检查剧本包
+                            </button>
+
+                            <br><br>
+
+                            <div class="editor_actions" style="min-height: 100px;">
+                              <div class="actions_label">格式错误（必定会造成剧本包无法使用）</div><br>
+                              <div id="validateErrors" style="color: crimson;">暂无错误</div>
+                            </div>
+
+                            <div class="editor_actions" style="min-height: 100px;">
+                              <div class="actions_label">格式警告（可能产生问题，但问题不大）</div><br>
+                              <div id="validateWarnings" style="color:goldenrod;">暂无问题</div>
+                            </div>
+
+                          </div>
+                      </div>
+
+                      <br><br><br>
+      
                   </div>
 
 

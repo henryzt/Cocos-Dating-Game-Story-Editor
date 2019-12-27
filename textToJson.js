@@ -274,4 +274,7 @@ function checkCardPackValid(cardsArray){
     }
     console.log(errorList)
     console.log(warningList)
+
+    document.getElementById("validateErrors").innerHTML = errorList.toString().replace(",","<br>")
+    document.getElementById("validateWarnings").innerHTML = warningList.toString().replace(",","<br>")
 }
